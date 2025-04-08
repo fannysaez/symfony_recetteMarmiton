@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 final class AdminController extends AbstractController{
-    #[Route('/admin', name: 'app_admin')]
+    #[Route('/admin', name: 'admin_index')]
     public function index(): Response
     {
         return $this->render('admin/index.html.twig', [

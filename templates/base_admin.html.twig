@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Admin Dashboard{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ asset('styles/app.css') }}"> <!-- Lien vers votre app.css -->
+</head>
+<body>
+
+    <!-- Conteneur principal pour le menu latéral et le contenu -->
+    <div class="container-fluid d-flex ps-0">
+        <!-- Menu latéral -->
+        <nav class="flex-column bg-dark text-white p-3" style="width: 250px; height: 100vh;">
+            <h2 class="text-center mb-4">
+                <i class="bi bi-person-lock text-white"></i> Admin
+            </h2>
+            <a href="#" class="text-white text-decoration-none p-2 d-block nav-link">
+                <i class="bi bi-house-door text-white"></i> Accueil
+            </a>
+        </nav>
+
+        <!-- Contenu principal -->
+        <div class="container-fluid mt-5" style="flex-grow: 1;">
+            {% block body %}
+            {% endblock %}
+        </div>
+    </div>
+
+</body>
+</html>

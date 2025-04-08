@@ -2,15 +2,11 @@
 
 namespace App\Entity;
 
-use App\Entity\Ingredient;
-use Doctrine\DBAL\Types\Types;
+use App\Repository\IngredientRepository;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\RecipeRepository;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
 
-#[ORM\Entity(repositoryClass: RecipeRepository::class)]
-class Recipe
+#[ORM\Entity(repositoryClass: IngredientRepository::class)]
+class Ingredient
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -18,250 +14,51 @@ class Recipe
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $title = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $slug = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $image = null;
+    private ?string $name = null;
 
     #[ORM\Column]
-    private ?int $duration = null;
+    private ?int $quantity = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $difficulty = null;
-
-    #[ORM\Column]
-    private ?int $peopleCount = null;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $createdAt = null;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $updateAt = null;
-
-    #[ORM\ManyToOne(inversedBy: 'recipes')]
-    private ?User $user = null;
-
-    /**
-     * @var Collection<int, Ingredient>
-     */
-    #[ORM\OneToMany(targetEntity: Ingredient::class, mappedBy: 'recipe', orphanRemoval: true, cascade: ['persist'])]
-    private Collection $ingredients;
-
-    /**
-     * @var Collection<int, Comment>
-     */
-    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'recipe', orphanRemoval: true, cascade: ['persist'])]
-    private Collection $comments;
-
-    /**
-     * @var Collection<int, Like>
-     */
-    #[ORM\OneToMany(targetEntity: Like::class, mappedBy: 'recipe', orphanRemoval: true, cascade: ['persist'])]
-    private Collection $likes;
-
-    public function __construct()
-    {
-        $this->ingredients = new ArrayCollection();
-        $this->comments = new ArrayCollection();
-        $this->likes = new ArrayCollection();
-    }
+    #[ORM\ManyToOne(inversedBy: 'recipe')]
+    private ?Recipe $recipe = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    public function getName(): ?string
     {
-        return $this->title;
+        return $this->name;
     }
 
-    public function setTitle(string $title): static
+    public function setName(string $name): static
     {
-        $this->title = $title;
-        return $this;
-    }
-
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    public function setSlug(string $slug): static
-    {
-        $this->slug = $slug;
-        return $this;
-    }
-
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(string $image): static
-    {
-        $this->image = $image;
-        return $this;
-    }
-
-    public function getDuration(): ?int
-    {
-        return $this->duration;
-    }
-
-    public function setDuration(int $duration): static
-    {
-        $this->duration = $duration;
-        return $this;
-    }
-
-    public function getDifficulty(): ?string
-    {
-        return $this->difficulty;
-    }
-
-    public function setDifficulty(string $difficulty): static
-    {
-        $this->difficulty = $difficulty;
-        return $this;
-    }
-
-    public function getPeopleCount(): ?int
-    {
-        return $this->peopleCount;
-    }
-
-    public function setPeopleCount(int $peopleCount): static
-    {
-        $this->peopleCount = $peopleCount;
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $createdAt): static
-    {
-        $this->createdAt = $createdAt;
-        return $this;
-    }
-
-    public function getUpdateAt(): ?\DateTimeInterface
-    {
-        return $this->updateAt;
-    }
-
-    public function setUpdateAt(\DateTimeInterface $updateAt): static
-    {
-        $this->updateAt = $updateAt;
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): static
-    {
-        $this->user = $user;
-        return $this;
-    }
-
-    // ===== INGREDIENTS =====
-
-    /**
-     * @return Collection<int, Ingredient>
-     */
-    public function getIngredients(): Collection
-    {
-        return $this->ingredients;
-    }
-
-    public function addIngredient(Ingredient $ingredient): static
-    {
-        if (!$this->ingredients->contains($ingredient)) {
-            $this->ingredients->add($ingredient);
-            $ingredient->setRecipe($this);
-        }
+        $this->name = $name;
 
         return $this;
     }
 
-    public function removeIngredient(Ingredient $ingredient): static
+    public function getQuantity(): ?int
     {
-        if ($this->ingredients->removeElement($ingredient)) {
-            if ($ingredient->getRecipe() === $this) {
-                $ingredient->setRecipe(null);
-            }
-        }
+        return $this->quantity;
+    }
+
+    public function setQuantity(int $quantity): static
+    {
+        $this->quantity = $quantity;
 
         return $this;
     }
 
-    // ===== COMMENTS =====
-
-    /**
-     * @return Collection<int, Comment>
-     */
-    public function getComments(): Collection
+    public function getRecipe(): ?Recipe
     {
-        return $this->comments;
+        return $this->recipe;
     }
 
-    public function addComment(Comment $comment): static
+    public function setRecipe(?Recipe $recipe): static
     {
-        if (!$this->comments->contains($comment)) {
-            $this->comments->add($comment);
-            $comment->setRecipe($this);
-        }
-
-        return $this;
-    }
-
-    public function removeComment(Comment $comment): static
-    {
-        if ($this->comments->removeElement($comment)) {
-            if ($comment->getRecipe() === $this) {
-                $comment->setRecipe(null);
-            }
-        }
-
-        return $this;
-    }
-
-    // ===== LIKES =====
-
-    /**
-     * @return Collection<int, Like>
-     */
-    public function getLikes(): Collection
-    {
-        return $this->likes;
-    }
-
-    public function addLike(Like $like): static
-    {
-        if (!$this->likes->contains($like)) {
-            $this->likes->add($like);
-            $like->setRecipe($this);
-        }
-
-        return $this;
-    }
-
-    public function removeLike(Like $like): static
-    {
-        if ($this->likes->removeElement($like)) {
-            if ($like->getRecipe() === $this) {
-                $like->setRecipe(null);
-            }
-        }
+        $this->recipe = $recipe;
 
         return $this;
     }
