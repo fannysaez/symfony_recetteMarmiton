@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use App\Entity\Recipe;
+use App\Entity\Comment;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -39,21 +41,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $username = null;
 
     /**
-     * @var Collection<int, recipe>
+     * @var Collection<int, Recipe>
      */
-    #[ORM\OneToMany(targetEntity: recipe::class, mappedBy: 'user')]
-    private Collection $user;
+    #[ORM\OneToMany(targetEntity: Recipe::class, mappedBy: 'user')]
+    private Collection $recipes;
 
     /**
-     * @var Collection<int, comment>
+     * @var Collection<int, Comment>
      */
-    #[ORM\OneToMany(targetEntity: comment::class, mappedBy: 'user')]
-    private Collection $User;
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'user')]
+    private Collection $comments;
 
     public function __construct()
     {
-        $this->user = new ArrayCollection();
-        $this->User = new ArrayCollection();
+        $this->recipes = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -69,28 +71,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): static
     {
         $this->email = $email;
-
         return $this;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
     public function getUserIdentifier(): string
     {
         return (string) $this->email;
     }
 
     /**
-     * @see UserInterface
      * @return list<string>
      */
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
@@ -102,13 +96,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
-
         return $this;
     }
 
-    /**
-     * @see PasswordAuthenticatedUserInterface
-     */
     public function getPassword(): ?string
     {
         return $this->password;
@@ -117,17 +107,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPassword(string $password): static
     {
         $this->password = $password;
-
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function eraseCredentials(): void
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        // Clear temporary sensitive data if needed
     }
 
     public function getUsername(): ?string
@@ -138,34 +123,61 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUsername(string $username): static
     {
         $this->username = $username;
-
         return $this;
     }
 
     /**
-     * @return Collection<int, recipe>
+     * @return Collection<int, Recipe>
      */
-    public function getUser(): Collection
+    public function getRecipes(): Collection
     {
-        return $this->user;
+        return $this->recipes;
     }
 
-    public function addUser(recipe $user): static
+    public function addRecipe(Recipe $recipe): static
     {
-        if (!$this->user->contains($user)) {
-            $this->user->add($user);
-            $user->setUser($this);
+        if (!$this->recipes->contains($recipe)) {
+            $this->recipes->add($recipe);
+            $recipe->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeUser(recipe $user): static
+    public function removeRecipe(Recipe $recipe): static
     {
-        if ($this->user->removeElement($user)) {
-            // set the owning side to null (unless already changed)
-            if ($user->getUser() === $this) {
-                $user->setUser(null);
+        if ($this->recipes->removeElement($recipe)) {
+            if ($recipe->getUser() === $this) {
+                $recipe->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): static
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): static
+    {
+        if ($this->comments->removeElement($comment)) {
+            if ($comment->getUser() === $this) {
+                $comment->setUser(null);
             }
         }
 

@@ -20,10 +20,10 @@ class Comment
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $createdAt = null;
 
-    #[ORM\ManyToOne(inversedBy: 'recipes')]
+    #[ORM\ManyToOne(inversedBy: 'comments')]
     private ?Recipe $recipe = null;
 
-    #[ORM\ManyToOne(inversedBy: 'User')]
+    #[ORM\ManyToOne(inversedBy: 'comments')]
     private ?User $user = null;
 
     public function getId(): ?int
@@ -39,7 +39,6 @@ class Comment
     public function setContent(string $content): static
     {
         $this->content = $content;
-
         return $this;
     }
 
@@ -51,7 +50,6 @@ class Comment
     public function setCreatedAt(\DateTimeInterface $createdAt): static
     {
         $this->createdAt = $createdAt;
-
         return $this;
     }
 
@@ -63,7 +61,6 @@ class Comment
     public function setRecipe(?Recipe $recipe): static
     {
         $this->recipe = $recipe;
-
         return $this;
     }
 
@@ -75,7 +72,6 @@ class Comment
     public function setUser(?User $user): static
     {
         $this->user = $user;
-
         return $this;
     }
 }
