@@ -37,12 +37,6 @@ final class RecetteController extends AbstractController
             $slug = $slugger->slug($title)->lower();
             $recipe->setSlug($slug);
 
-            // Vérifier si une URL d'image a été fournie
-            $imageUrl = $recipe->getImage();
-            if ($imageUrl) {
-                $recipe->setImage($imageUrl);  // Ajouter l'URL de l'image
-            }
-
             // Ajouter la date de création
             $recipe->setCreatedAt(new \DateTimeImmutable());
             $recipe->setUser($this->getUser());  // Associer l'utilisateur connecté à la recette
