@@ -1,0 +1,59 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ path('home_index') }}">Marmiton</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Menu gauche -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ path('home_index') }}">Accueil</a>
+                </li>
+
+                {% if app.user %}
+                    <!-- Admin visible seulement si l'utilisateur a le rôle ROLE_ADMIN -->
+                    {% if 'ROLE_ADMIN' in app.user.roles %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('admin_index') }}">Admin</a>
+                        </li>
+                    {% endif %}
+                    
+                    <!-- Nouvelle recette visible uniquement pour les utilisateurs connectés -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('recette_create') }}">Nouvelle Recette</a>
+                    </li>
+                {% endif %}
+            </ul>
+
+            <!-- Menu droite -->
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                {% if app.user %}
+                    <!-- Menu utilisateur -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            👤 Bonjour, {{ app.user.username }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{{ path('user_profile') }}">Mon profil</a></li>
+                            <li><a class="dropdown-item" href="">Favoris</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="{{ path('app_logout') }}">Déconnexion</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <!-- Connexion/Inscription visibles seulement si l'utilisateur n'est pas connecté -->
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline-primary me-2" href="{{ path('app_login') }}">Connexion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline-success" href="{{ path('app_register') }}">Inscription</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

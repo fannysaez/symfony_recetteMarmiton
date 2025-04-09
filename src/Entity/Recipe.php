@@ -45,11 +45,7 @@ class Recipe
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    /**
-     * @var Collection<int, Ingredient>
-     */
-    #[ORM\OneToMany(targetEntity: Ingredient::class, mappedBy: 'recipe', orphanRemoval: true, cascade: ['persist'])]
-    private Collection $ingredients;
+
 
     /**
      * @var Collection<int, Comment>
@@ -63,16 +59,29 @@ class Recipe
     #[ORM\OneToMany(targetEntity: Like::class, mappedBy: 'recipe', orphanRemoval: true, cascade: ['persist'])]
     private Collection $likes;
 
+    /**
+     * @var Collection<int, Ingredient>
+     */
+    #[ORM\ManyToMany(targetEntity: Ingredient::class, inversedBy: 'recipes')]
+    private Collection $ingredients;
+
     public function __construct()
     {
-        $this->ingredients = new ArrayCollection();
+
         $this->comments = new ArrayCollection();
         $this->likes = new ArrayCollection();
+        $this->ingredients = new ArrayCollection();
     }
 
-    public function getId(): ?int { return $this->id; }
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
-    public function getTitle(): ?string { return $this->title; }
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
 
     public function setTitle(string $title): static
     {
@@ -80,7 +89,10 @@ class Recipe
         return $this;
     }
 
-    public function getSlug(): ?string { return $this->slug; }
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
 
     public function setSlug(string $slug): static
     {
@@ -88,7 +100,10 @@ class Recipe
         return $this;
     }
 
-    public function getImage(): ?string { return $this->image; }
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
 
     public function setImage(string $image): static
     {
@@ -96,7 +111,10 @@ class Recipe
         return $this;
     }
 
-    public function getDuration(): ?int { return $this->duration; }
+    public function getDuration(): ?int
+    {
+        return $this->duration;
+    }
 
     public function setDuration(int $duration): static
     {
@@ -104,7 +122,10 @@ class Recipe
         return $this;
     }
 
-    public function getDifficulty(): ?string { return $this->difficulty; }
+    public function getDifficulty(): ?string
+    {
+        return $this->difficulty;
+    }
 
     public function setDifficulty(string $difficulty): static
     {
@@ -112,7 +133,10 @@ class Recipe
         return $this;
     }
 
-    public function getPeopleCount(): ?int { return $this->peopleCount; }
+    public function getPeopleCount(): ?int
+    {
+        return $this->peopleCount;
+    }
 
     public function setPeopleCount(int $peopleCount): static
     {
@@ -120,7 +144,10 @@ class Recipe
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface { return $this->createdAt; }
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
 
     public function setCreatedAt(\DateTimeInterface $createdAt): static
     {
@@ -128,7 +155,10 @@ class Recipe
         return $this;
     }
 
-    public function getUpdateAt(): ?\DateTimeInterface { return $this->updateAt; }
+    public function getUpdateAt(): ?\DateTimeInterface
+    {
+        return $this->updateAt;
+    }
 
     public function setUpdateAt(\DateTimeInterface $updateAt): static
     {
@@ -136,38 +166,14 @@ class Recipe
         return $this;
     }
 
-    public function getUser(): ?User { return $this->user; }
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
 
     public function setUser(?User $user): static
     {
         $this->user = $user;
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Ingredient>
-     */
-    public function getIngredients(): Collection
-    {
-        return $this->ingredients;
-    }
-
-    public function addIngredient(Ingredient $ingredient): static
-    {
-        if (!$this->ingredients->contains($ingredient)) {
-            $this->ingredients->add($ingredient);
-            $ingredient->setRecipe($this);
-        }
-        return $this;
-    }
-
-    public function removeIngredient(Ingredient $ingredient): static
-    {
-        if ($this->ingredients->removeElement($ingredient)) {
-            if ($ingredient->getRecipe() === $this) {
-                $ingredient->setRecipe(null);
-            }
-        }
         return $this;
     }
 
@@ -222,6 +228,30 @@ class Recipe
                 $like->setRecipe(null);
             }
         }
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ingredient>
+     */
+    public function getIngredients(): Collection
+    {
+        return $this->ingredients;
+    }
+
+    public function addIngredient(Ingredient $ingredient): static
+    {
+        if (!$this->ingredients->contains($ingredient)) {
+            $this->ingredients->add($ingredient);
+        }
+
+        return $this;
+    }
+
+    public function removeIngredient(Ingredient $ingredient): static
+    {
+        $this->ingredients->removeElement($ingredient);
+
         return $this;
     }
 }
