@@ -1,0 +1,16 @@
+/* Désactiver l'effet hover pour les boutons "Connexion" et "Inscription" */
+.navbar .nav-link.btn.btn-outline-primary:hover,
+.navbar .nav-link.btn.btn-outline-success:hover {
+    background-color: none; /* Aucune couleur de fond au survol */
+    border-color: inherit; /* Conserver la bordure originale */
+    color: white; /* Conserver la couleur du texte */
+}
+
+.navbar .nav-link.btn.btn-outline-primary{
+    background-color: #127089;
+    color:white;
+}
+.navbar .nav-link.btn.btn-outline-success{
+    background-color: black;
+    color:white;
+}
