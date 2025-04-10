@@ -21,9 +21,9 @@ final class HomeController extends AbstractController{
         $recipes = [];
 
         // Si un ingrédient est sélectionné, on filtre les recettes associées
-        if ($ingredientId) {
-            $recipes = $recipeRepo->findByIngredient($ingredientId);
-        }
+        // if ($ingredientId) {
+        //     $recipes = $recipeRepo->findByIngredient($ingredientId);
+        // }
 
         // Passer les données au template
         return $this->render('home/index.html.twig', [
