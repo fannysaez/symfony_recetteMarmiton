@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Ingrédients{% endblock %}
+
+{% block body %}
+    <h1>Liste des Ingrédients</h1>
+    <ul>
+        {% for ingredient in ingredients %}
+            <li>{{ ingredient.name }}</li>  {# Assure-toi que tu as un attribut `name` dans ton entité Ingredient #}
+        {% endfor %}
+    </ul>
+{% endblock %}

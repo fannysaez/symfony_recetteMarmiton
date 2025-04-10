@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Ingredient;
 use App\Form\IngredientType;
+use App\Repository\IngredientRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/ingredient')]
 final class IngredientController extends AbstractController
 {
-
+    // Liste des ingrédients
     #[Route('/', name: 'ingredient_index')]
     public function index(EntityManagerInterface $entityManager): Response
     {
@@ -24,34 +25,16 @@ final class IngredientController extends AbstractController
         ]);
     }
 
-    // #[Route('/create', name: 'ingredient_create')]
-    // public function create(Request $request, EntityManagerInterface $entityManager): Response
-    // {
-    //     $this->denyAccessUnlessGranted('ROLE_ADMIN'); // Sécurisation de la page avec un rôle admin
+    // Nouvelle route pour la liste des ingrédients avec un chemin unique
+    #[Route('/list', name: 'ingredient_list')]
+    public function list(IngredientRepository $ingredientRepository): Response
+    {
+        // Récupérer tous les ingrédients depuis la base de données
+        $ingredients = $ingredientRepository->findAll();
 
-    //     // Création d'un nouvel ingrédient
-    //     $ingredient = new Ingredient();
-
-    //     // Création du formulaire pour ajouter un ingrédient
-    //     $form = $this->createForm(IngredientType::class, $ingredient);
-
-    //     // Traitement de la soumission du formulaire
-    //     $form->handleRequest($request);
-
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         // Sauvegarde de l'ingrédient dans la base de données
-    //         $entityManager->persist($ingredient);
-    //         $entityManager->flush();
-
-    //         // Message de succès et redirection vers la page de création
-    //         $this->addFlash('success', 'L\'ingrédient a bien été ajouté !');
-
-    //         return $this->redirectToRoute('ingredient_create'); // Redirection vers la page de création pour ajouter un autre ingrédient
-    //     }
-
-    //     // Affichage du formulaire d'ajout
-    //     return $this->render('admin_ingredient/create.html.twig', [
-    //         'form' => $form->createView(), // Formulaire à afficher
-    //     ]);
-    // }
+        // Retourner la vue avec les ingrédients
+        return $this->render('ingredient/list.html.twig', [
+            'ingredients' => $ingredients,
+        ]);
+    }
 }
