@@ -41,7 +41,9 @@
                             <li><a class="dropdown-item" href="{{ path('user_profile') }}">Mon profil</a></li>
                             <li><a class="dropdown-item" href="">Favoris</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item text-danger" href="{{ path('app_logout') }}">Déconnexion</a></li>
+                            <li><a class="dropdown-item text-danger text-center" href="{{ path('app_logout') }}" title="Déconnexion">
+                                <i class="bi bi-box-arrow-right fs-5"></i>
+                            </a></li>
                         </ul>
                     </li>
                 {% else %}
