@@ -1,12 +1,13 @@
 <div class="card">
-    <img class="img-fluid"
-        src="https://assets.afcdn.com/recipe/20211214/125831_w1024h1024c1cx866cy866cxt0cyt292cxb1732cyb1732.jpg"
-        alt="A CHANGER">
+    {% for image in recipe.image %}
+      <img src="{{ image.url }}" alt="{{ image.title }}" class="card-img-top" />
+    {% else %}
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAjTyV82ZnWf2TvhqzqS1Rwfcz9T0laA37aI5ess-hHQF9ylLu087Bd8y_7LNufOp_d_Qj60ohW-lJAsL0muKAzTguBwNDUWcOpTR35jmX" alt="Image non disponible" class="card-img-top" alt="Image non disponible" class="card-img-top" />
+    {% endfor %}
     <div class="card-body">
-        <h3>Nom de la recette TODO</h3>
-        <p><strong>Email :</strong> bidule@gmail.com</p>
-        <p>Difficulté: NORMAL</p>
-        <p>Pour: X personnes</p>
-        {# Tu peux ajouter ici d'autres infos comme : prénom, rôles, etc. #}
+      <h5 class="card-title">{{ recipe.title }}</h5>
+      <p class="card-text">{{ recipe.difficulty}} | {{recipe.duration}} min | {{recipe.peopleCount}} personnes</p>
+      <a href="" class="btn btn-primary">Voir la recette</a>
     </div>
-</div>
+  </div>
+  

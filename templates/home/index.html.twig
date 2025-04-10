@@ -3,8 +3,6 @@
 {% block title %}Bienvenue sur la page d'accueil !{% endblock %}
 
 {% block body %}
-
-
 <!-- Contenu principal -->
 <div class="container d-flex justify-content-center align-items-center min-vh-100">
     <div class="jumbotron text-center">
@@ -14,15 +12,20 @@
     </div>
 </div>
 
-
 <section>
     <div class="container">
         <div class="row g-3">
-            <div class="col-md-4">
-                {% include "_partials/recipe-card.html.twig" %}
-            </div>
+            {% for recipe in recipes %}
+                <div class="col-md-4">
+                    {% include "_partials/recipe-card.html.twig" with { 'recipe': recipe } %}
+                </div>
+            {% else %}
+                <div class="col-12">
+                    <p>Aucune recette disponible.</p>
+                </div>
+            {% endfor %}
         </div>
     </div>
-
 </section>
+
 {% endblock %}
