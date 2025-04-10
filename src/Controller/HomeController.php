@@ -15,6 +15,7 @@ final class HomeController extends AbstractController{
     {
         // Récupérer tous les ingrédients
         $ingredients = $ingredientRepo->findAll();
+        $recipes = $recipeRepo->findAll();
 
         // Récupérer l'ingrédient sélectionné via le paramètre de la requête
         $ingredientId = $request->query->get('ingredient');
