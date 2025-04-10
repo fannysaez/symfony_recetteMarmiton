@@ -25,6 +25,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('recette_create') }}">Nouvelle Recette</a>
                     </li>
+                    <!-- Nouvelle ingredient visible uniquement pour les admins -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('ingredient_index') }}">Nouvelle Ingredient</a>
+                    </li>
+
                 {% endif %}
             </ul>
 
