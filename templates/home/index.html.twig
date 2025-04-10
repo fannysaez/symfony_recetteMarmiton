@@ -3,60 +3,26 @@
 {% block title %}Bienvenue sur la page d'accueil !{% endblock %}
 
 {% block body %}
+
+
 <!-- Contenu principal -->
-<div class="container mt-5">
-    <div class="card shadow p-4">
-        <h1 class="text-center mb-4">Bienvenue sur notre site !</h1>
-        <p class="text-center text-muted">Découvrez nos recettes de qualité en fonction des ingrédients</p>
-        <hr>
-
-        <!-- Formulaire de sélection d'ingrédient -->
-        <form method="get" action="{{ path('home_index') }}" class="mb-4">
-            <div class="row">
-                <div class="col-md-8">
-                    <select name="ingredient" class="form-select">
-                        <option value="">-- Choisissez un ingrédient --</option>
-                        {% for ingredient in ingredients %}
-                            <option value="{{ ingredient.id }}"
-                                {% if ingredient.id == selectedIngredient|default(null) %}selected{% endif %}
-                            >
-                                {{ ingredient.name }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <button class="btn btn-primary w-100">Voir les recettes</button>
-                </div>
-            </div>
-        </form>
-
-        <!-- Affichage des recettes dans des cards -->
-        {% if recipes is not empty %}
-            <div class="row g-3">
-                {% for recipe in recipes %}
-                    <div class="col-md-4">
-                        <div class="card h-100 shadow-sm">
-                            <img src="{{ asset(recipe.image) }}" class="card-img-top" alt="{{ recipe.title }}">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ recipe.title }}</h5>
-                                <p class="card-text">
-                                    <strong>Auteur :</strong> {{ recipe.author.email }}<br>
-                                    <strong>Difficulté :</strong> {{ recipe.difficulty.name }}<br>
-                                    <strong>Durée :</strong> {{ recipe.duration }} min<br>
-                                    <strong>Pour :</strong> {{ recipe.peopleCount }} personnes
-                                </p>
-                                <a href="{{ path('recipe_show', {id: recipe.id}) }}" class="btn btn-outline-primary">Voir la recette</a>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        {% elseif selectedIngredient %}
-            <div class="alert alert-warning text-center mt-3">
-                Aucune recette trouvée avec cet ingrédient.
-            </div>
-        {% endif %}
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="jumbotron text-center">
+        <h1 class="display-4">Bienvenue sur notre site !</h1>
+        <hr class="my-4">
+        <p class="lead">Découvrez nos recettes de qualité.</p>
     </div>
 </div>
+
+
+<section>
+    <div class="container">
+        <div class="row g-3">
+            <div class="col-md-4">
+                {% include "_partials/recipe-card.html.twig" %}
+            </div>
+        </div>
+    </div>
+
+</section>
 {% endblock %}
