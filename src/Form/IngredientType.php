@@ -4,9 +4,10 @@ namespace App\Form;
 
 use App\Entity\Ingredient;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class IngredientType extends AbstractType
 {
@@ -15,7 +16,7 @@ class IngredientType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Nom de l\'ingrédient',
-                'attr' => ['placeholder' => 'Ex: Tomate']
+                'attr' => ['class' => 'form-control']
             ]);
     }
 

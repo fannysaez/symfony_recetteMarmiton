@@ -1,0 +1,7 @@
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">{{ ingredient.name }}</h5>
+        <a href="{{ path('admin_ingredient_edit', {'id': ingredient.id}) }}" class="btn btn-warning">Modifier</a>
+        <a href="{{ path('admin_ingredient_delete', {'id': ingredient.id}) }}" class="btn btn-danger">Supprimer</a>
+    </div>
+</div>
