@@ -2,35 +2,43 @@
 
 namespace App\Form;
 
-use App\Entity\User;
 use App\Entity\Recipe;
 use App\Entity\Ingredient;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\Count;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Doctrine\ORM\EntityManagerInterface;
 
 class RecipeType extends AbstractType
 {
+    private $ingredientRepository;
+
+    // Injection du repository dans le constructeur
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->ingredientRepository = $entityManager->getRepository(Ingredient::class);
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('title', null, [
                 'label' => 'Titre de la recette',
             ])
-            // Champ image avec UrlType pour valider l'URL
             ->add('image', UrlType::class, [
                 'label' => 'URL de l’image',
-                'required' => false,  // Tu peux le rendre optionnel si nécessaire
+                'required' => false,
                 'attr' => [
-                    'placeholder' => 'Entrez l\'URL de l\'image', // Texte d'exemple dans le champ
+                    'placeholder' => 'Entrez l\'URL de l\'image',
                 ],
-            ])->add('duration', null, [
+            ])
+            ->add('duration', null, [
                 'label' => 'Durée (en minutes)',
             ])
-            // Modification de ce champ pour utiliser ChoiceType
             ->add('difficulty', ChoiceType::class, [
                 'label' => 'Difficulté',
                 'choices' => [
@@ -38,17 +46,27 @@ class RecipeType extends AbstractType
                     'Moyenne' => 'Moyenne',
                     'Difficile' => 'Difficile',
                 ],
-                'placeholder' => 'Choisir une difficulté', // Optionnel : ajouter un placeholder
+                'placeholder' => 'Choisir une difficulté',
             ])
             ->add('peopleCount', null, [
                 'label' => 'Nombre de personnes',
             ])
+            // Liste des ingrédients avec des cases à cocher en colonne
             ->add('ingredients', EntityType::class, [
                 'class' => Ingredient::class,
                 'choice_label' => 'name',
-                'multiple' => true,
+                'multiple' => true, // Permet la sélection multiple
+                'expanded' => true, // Affiche les cases à cocher
                 'label' => 'Ingrédients',
-                'multiple' => true,
+                'constraints' => [
+                    new Count([
+                        'max' => 2,
+                        'maxMessage' => 'Vous ne pouvez choisir que 2 ingrédients maximum.',
+                    ]),
+                ],
+                'attr' => [
+                    'class' => 'ingredients-checkboxes', // Classe pour personnaliser l'apparence
+                ],
             ]);
     }
 

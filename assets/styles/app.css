@@ -53,3 +53,23 @@ footer small {
     padding-top: 2rem; /* Réduit l'espace en haut */
     padding-bottom: 2rem; /* Réduit l'espace en bas */
 }
+
+/* Applique une mise en page en colonne aux cases à cocher */
+.ingredients-checkboxes {
+    display: flex;
+    flex-wrap: wrap; /* Permet de créer plusieurs colonnes */
+    gap: 10px; /* Espacement entre les cases à cocher */
+}
+
+/* Limite le nombre d'éléments par colonne à 5 */
+.ingredients-checkboxes > div {
+    display: flex;
+    flex-direction: row;
+    max-width: 200px; /* Ajuste la largeur des colonnes si nécessaire */
+    gap: 10px;
+}
+
+/* S'assure qu'il y a exactement 5 cases par colonne */
+.ingredients-checkboxes > div > label:nth-child(n+6) {
+    display: none; /* Masque toutes les cases au-delà de la 5ème dans chaque colonne */
+}
