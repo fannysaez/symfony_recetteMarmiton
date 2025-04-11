@@ -1,3 +1,35 @@
+html {
+    scroll-behavior: smooth;
+}
+
+html, body {
+    height: 100%; /* S'assurer que le body prend toute la hauteur de l'écran */
+    margin: 0; /* Retirer toute marge par défaut */
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Minimum 100% de la hauteur de la fenêtre */
+    overflow-x: hidden; /* Empêche le défilement horizontal */
+}
+
+.container {
+    flex-grow: 1;
+    padding: 20px; /* Espace autour du contenu */
+}
+
+footer {
+    width: 100%;
+    background-color: #343a40; /* Couleur de fond pour le footer */
+    color: white;
+    margin-top: 50px;
+}
+
+footer small {
+    font-size: 0.8em;
+}
+
 /* Désactiver l'effet hover pour les boutons "Connexion" et "Inscription" */
 .navbar .nav-link.btn.btn-outline-primary:hover,
 .navbar .nav-link.btn.btn-outline-success:hover {
@@ -6,13 +38,14 @@
     color: white; /* Conserver la couleur du texte */
 }
 
-.navbar .nav-link.btn.btn-outline-primary{
+.navbar .nav-link.btn.btn-outline-primary {
     background-color: #127089;
-    color:white;
+    color: white;
 }
-.navbar .nav-link.btn.btn-outline-success{
+
+.navbar .nav-link.btn.btn-outline-success {
     background-color: black;
-    color:white;
+    color: white;
 }
 
 .jumbotron {
