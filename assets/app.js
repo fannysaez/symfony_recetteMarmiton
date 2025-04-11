@@ -1,4 +1,8 @@
 import './bootstrap.js';
+import { initDarkMode } from './js/theme.js';
+
+initDarkMode();
+
 /*
  * Welcome to your app's main JavaScript file!
  *

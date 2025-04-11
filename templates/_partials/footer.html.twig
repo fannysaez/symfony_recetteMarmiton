@@ -1,0 +1,48 @@
+<footer class="bg-dark text-light mt-5">
+    <div class="container py-4">
+        <div class="row">
+
+            <!-- Logo et description -->
+            <div class="col-md-4 mb-3">
+                <div class="d-flex align-items-center mb-2">
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo" width="40" height="40" class="me-2">
+                    <h5 class="mb-0">Marmiton</h5>
+                </div>
+                <p>Partagez, créez et découvrez les meilleures recettes maison.</p>
+            </div>
+
+            <!-- Liens de navigation -->
+            <div class="col-md-4 mb-3">
+                <h5>Navigation</h5>
+                <ul class="list-unstyled">
+                    <li><a href="{{ path('home_index') }}" class="text-light text-decoration-none">Accueil</a></li>
+                    <li><a href="{{ path('recette_create') }}" class="text-light text-decoration-none">Nouvelle recette</a></li>
+                    {% if app.user %}
+                        <li><a href="{{ path('user_profile') }}" class="text-light text-decoration-none">Mon profil</a></li>
+                        <li><a href="{{ path('app_logout') }}" class="text-light text-decoration-none">Déconnexion</a></li>
+                    {% else %}
+                        <li><a href="{{ path('app_login') }}" class="text-light text-decoration-none">Connexion</a></li>
+                        <li><a href="{{ path('app_register') }}" class="text-light text-decoration-none">Inscription</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+
+            <!-- Contact & réseaux sociaux -->
+            <div class="col-md-4 mb-3">
+                <h5>Contact</h5>
+                <p>Email : <a href="mailto:support@marmiton.com" class="text-light">support@marmiton.com</a></p>
+                <div class="mt-2">
+                    <a href="https://facebook.com" class="text-light me-3"><i class="fab fa-facebook fa-lg"></i></a>
+                    <a href="https://twitter.com" class="text-light me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                    <a href="https://instagram.com" class="text-light me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                    <a href="https://github.com" class="text-light"><i class="fab fa-github fa-lg"></i></a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="text-center pt-3 border-top border-secondary">
+            <small>&copy; {{ "now"|date("Y") }} - Marmiton. Tous droits réservés.</small>
+        </div>
+    </div>
+</footer>
