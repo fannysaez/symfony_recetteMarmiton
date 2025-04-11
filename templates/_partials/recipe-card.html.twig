@@ -4,6 +4,7 @@
   {% else %}
       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAjTyV82ZnWf2TvhqzqS1Rwfcz9T0laA37aI5ess-hHQF9ylLu087Bd8y_7LNufOp_d_Qj60ohW-lJAsL0muKAzTguBwNDUWcOpTR35jmX" alt="Image non disponible" class="card-img-top" />
   {% endfor %}
+  
   <div class="card-body">
       <h5 class="card-title">{{ recipe.title }}</h5>
 
@@ -21,6 +22,7 @@
           <span>{{ recipe.duration }} min | {{ recipe.peopleCount }} personnes</span>
       </div>
 
+      <!-- Lien vers la page de détail de la recette -->
       <a href="" class="btn btn-primary mt-3">Voir la recette</a>
   </div>
 </div>

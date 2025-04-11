@@ -61,5 +61,4 @@ final class RecetteController extends AbstractController
         return $this->render('recette/show.html.twig', [
             'recipe' => $recipe,
         ]);
-    }
-}
+    }}
