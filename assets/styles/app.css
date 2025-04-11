@@ -14,3 +14,9 @@
     background-color: black;
     color:white;
 }
+
+.jumbotron {
+    margin-top: 0;
+    padding-top: 2rem; /* Réduit l'espace en haut */
+    padding-bottom: 2rem; /* Réduit l'espace en bas */
+}

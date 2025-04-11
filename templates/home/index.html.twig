@@ -4,8 +4,8 @@
 
 {% block body %}
 <!-- Contenu principal -->
-<div class="container d-flex justify-content-center align-items-center min-vh-100">
-    <div class="jumbotron text-center">
+<div class="container d-flex justify-content-center align-items-center mb-5">
+    <div class="jumbotron text-center mb-5">
         <h1 class="display-4">Bienvenue sur notre site !</h1>
         <hr class="my-4">
         <p class="lead">Découvrez nos recettes de qualité.</p>
@@ -16,7 +16,7 @@
     <div class="container">
         <div class="row g-3">
             {% for recipe in recipes %}
-                <div class="col-md-4">
+                <div class="col-md-3">
                     {% include "_partials/recipe-card.html.twig" with { 'recipe': recipe } %}
                 </div>
             {% else %}
