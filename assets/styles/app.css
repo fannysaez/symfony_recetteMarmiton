@@ -2,11 +2,6 @@ html {
     scroll-behavior: smooth;
 }
 
-html, body {
-    height: 100%; /* S'assurer que le body prend toute la hauteur de l'écran */
-    margin: 0; /* Retirer toute marge par défaut */
-}
-
 body {
     display: flex;
     flex-direction: column;
