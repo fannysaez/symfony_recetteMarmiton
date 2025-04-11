@@ -14,8 +14,8 @@
 
     <div class="container-fluid d-flex ps-0" style="min-height: 100vh;">
         <!-- Menu latéral -->
-        <nav class="flex-column bg-dark text-white p-3">
-            <h2 class="text-center mb-4">
+        <nav class="flex-shrink-0 bg-dark text-white ps-4" style="width: 250px; min-height: 100vh;">
+            <h2 class="text-center mb-4 p-4">
                 <i class="bi bi-person-lock text-white"></i> Admin
             </h2>
             <a href="{{ path('home_index') }}" class="text-white text-decoration-none p-2 d-block nav-link">
@@ -24,15 +24,16 @@
             <a href="{{ path('admin_ingredient') }}" class="text-white text-decoration-none p-2 d-block nav-link">
                 <i class="bi bi-plus-circle text-white"></i> Ajouter un ingrédient
             </a>
+            
         </nav>
-    
+
         <!-- Contenu principal -->
         <div class="container-fluid mt-5" style="flex-grow: 1;">
             {% block body %}
             {% endblock %}
         </div>
     </div>
-    
+
 
 </body>
 
