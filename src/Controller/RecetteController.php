@@ -67,6 +67,7 @@ final class RecetteController extends AbstractController
     {
         // Récupérer la recette en fonction de l'ID
         $recipe = $entityManager->getRepository(Recipe::class)->find($id);
+        $comments = $recipe->getComments();
 
         // Vérifier si la recette existe
         if (!$recipe) {
@@ -76,6 +77,11 @@ final class RecetteController extends AbstractController
         // Renvoyer la recette dans la vue
         return $this->render('recette/show.html.twig', [
             'recipe' => $recipe,
+            'comments' => $comments
         ]);
+
+        
+
+        
     }
 }

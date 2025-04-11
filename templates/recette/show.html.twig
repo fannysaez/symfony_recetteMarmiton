@@ -3,19 +3,20 @@
 {% block title %}Détails de la recette{% endblock %}
 
 {% block body %}
-<div class="container d-flex justify-content-center align-items-center min-vh-100 mt-5">
-    <div class="card" style="width: 30rem;">
-        {# Affichage de l'image de la recette #}
+<div class="container py-4 d-flex flex-column align-items-center min-vh-100 mt-5">
+
+    <div class="card shadow-sm mb-4" style="width: 30rem;">
+        {# Affichage de l'image de la recette via for-else #}
         {% for image in recipe.image %}
-            <img src="{{ image.url }}" alt="{{ image.title }}" class="card-img-top" />
+        <img src="{{ image.url }}" alt="{{ image.title }}" class="card-img-top" />
         {% else %}
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAjTyV82ZnWf2TvhqzqS1Rwfcz9T0laA37aI5ess-hHQF9ylLu087Bd8y_7LNufOp_d_Qj60ohW-lJAsL0muKAzTguBwNDUWcOpTR35jmX" alt="Image non disponible" class="card-img-top" />
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAjTyV82ZnWf2TvhqzqS1Rwfcz9T0laA37aI5ess-hHQF9ylLu087Bd8y_7LNufOp_d_Qj60ohW-lJAsL0muKAzTguBwNDUWcOpTR35jmX"
+            alt="Image non disponible" class="card-img-top" style="height: 200px;" />
         {% endfor %}
-        
+
         <div class="card-body">
             <h5 class="card-title">{{ recipe.title }}</h5>
 
-            {# Affichage de la difficulté avec une couleur #}
             <p class="
                 {% if recipe.difficulty == 'Facile' %}text-success
                 {% elseif recipe.difficulty == 'Moyenne' %}text-warning
@@ -23,27 +24,53 @@
                 {% else %}text-secondary{% endif %}">
                 {{ recipe.difficulty }}
             </p>
+            {# Formulaire d’ajout de commentaire
+            <div class="card shadow-sm w-100 mb-4" style="max-width: 30rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Ajouter un commentaire</h5>
 
-            {# Autres informations de la recette #}
+                    {% if app.user %}
+                    {{ form_start(comment) }}
+                    <div class="mb-3">
+                        {{ form_row(comment.content) }}
+                    </div>
+                    <button type="submit" class="btn btn-success">Envoyer</button>
+                    {{ form_end(comment) }}
+                    {% else %}
+                    <p class="text-muted">Vous devez être connecté pour laisser un commentaire.</p>
+                    {% endif %}
+                </div>
+            </div> #}
+
             <p class="card-text">
                 <strong>Durée :</strong> {{ recipe.duration }} min<br>
-                <strong>Nombre de personnes :</strong> {{ recipe.peopleCount }}<br>
-
-                {# Liste des ingrédients #}
-                <strong>Ingrédients :</strong>
-                <ul>
-                    {% for ingredient in recipe.ingredients %}
-                        <li>{{ ingredient.name }} </li>
-                    {% endfor %}
-                </ul>
+                <strong>Nombre de personnes :</strong> {{ recipe.peopleCount }}
             </p>
-            <div class="div">
-                <p>Auteur : Fanny</p>
-                <p>Date de création : </p>
-                <p>Content</p>
-            </div>
-            <a href="{{ path('home_index')}}" class="btn btn-primary">Retour</a>
+
+            <strong>Ingrédients :</strong>
+            <ul>
+                {% for ingredient in recipe.ingredients %}
+                <li>{{ ingredient.name }}</li>
+                {% endfor %}
+            </ul>
+
+            <a href="{{ path('home_index') }}" class="btn btn-primary mt-3">Retour</a>
         </div>
     </div>
+
+    {# Affichage des commentaires #}
+    {% for comment in comments %}
+    <div class="card mb-3 shadow-sm w-100" style="max-width: 30rem;">
+        <div class="card-header d-flex justify-content-between">
+            <span><strong>{{ comment.user.username }}</strong></span>
+            <span class="text-muted">{{ comment.createdAt|date("d/m/Y") }}</span>
+        </div>
+        <div class="card-body">
+            <p class="card-text">{{ comment.content }}</p>
+        </div>
+    </div>
+    {% else %}
+    <p class="text-muted">Aucun commentaire pour le moment.</p>
+    {% endfor %}
 </div>
 {% endblock %}
