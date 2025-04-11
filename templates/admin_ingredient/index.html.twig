@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_admin.html.twig' %}
 
 {% block title %}Liste des ingrédients{% endblock %}
 
@@ -7,22 +7,30 @@
     <h1 class="text-center mb-4">Liste des ingrédients</h1>
 
     {% if ingredients is not empty %}
-        <div class="mb-3">
-            <label for="ingredientSelect" class="form-label">Choisissez un ingrédient :</label>
-            <select class="form-select" id="ingredientSelect" name="ingredient">
-                {% for ingredient in ingredients %}
-                    <option value="{{ ingredient.id }}">{{ ingredient.name }}</option>
-                {% endfor %}
-            </select>
-        </div>
+    <div class="mb-3">
+        <label for="ingredientSelect" class="form-label">Choisissez un ingrédient :</label>
+        <select class="form-select" id="ingredientSelect" name="ingredient">
+            {% for ingredient in ingredients %}
+            <option value="{{ ingredient.id }}">{{ ingredient.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
     {% else %}
-        <div class="alert alert-info">
-            Aucun ingrédient pour le moment.
-        </div>
+    <div class="alert alert-info">
+        Aucun ingrédient pour le moment.
+    </div>
     {% endif %}
 
     <div class="text-end mt-4">
-        <a href="{{ path('ingredient_create') }}" class="btn btn-primary">Ajouter un nouvel ingrédient</a>
+        <a href="{{ path('ingredient_create') }}" class="btn btn-dark">Ajouter un nouvel ingrédient</a>
     </div>
+
+    <!-- Bouton de retour à l'accueil -->
+    <div class="text-center mt-5">
+    <a href="{{ path('home_index') }}" class="btn btn-dark mt-3">
+        <i class="bi bi-arrow-left"></i> Retour à l’accueil
+    </a>
+    </div>
+
 </div>
 {% endblock %}
