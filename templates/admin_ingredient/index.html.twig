@@ -3,34 +3,46 @@
 {% block title %}Liste des ingrédients{% endblock %}
 
 {% block body %}
-<div class="container mt-4">
-    <h1 class="text-center mb-4">Liste des ingrédients</h1>
+<!-- Titre Espace Administrateur avec icône -->
+<h1 class="text-center mb-4">
+    <i class="bi bi-shield-lock"></i> Espace Administrateur
+</h1>
 
-    {% if ingredients is not empty %}
-    <div class="mb-3">
-        <label for="ingredientSelect" class="form-label">Choisissez un ingrédient :</label>
-        <select class="form-select" id="ingredientSelect" name="ingredient">
-            {% for ingredient in ingredients %}
-            <option value="{{ ingredient.id }}">{{ ingredient.name }}</option>
-            {% endfor %}
-        </select>
-    </div>
-    {% else %}
-    <div class="alert alert-info">
-        Aucun ingrédient pour le moment.
-    </div>
-    {% endif %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="w-100">
+        
+        <div class="card">
+            <div class="card-header text-center">
+                <h1>Liste des ingrédients</h1>
+            </div>
+            <div class="card-body">
+                {% if ingredients is not empty %}
+                <div class="mb-3">
+                    <label for="ingredientSelect" class="form-label">Choisissez un ingrédient :</label>
+                    <select class="form-select" id="ingredientSelect" name="ingredient">
+                        {% for ingredient in ingredients %}
+                        <option value="{{ ingredient.id }}">{{ ingredient.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% else %}
+                <div class="alert alert-info">
+                    Aucun ingrédient pour le moment.
+                </div>
+                {% endif %}
 
-    <div class="text-end mt-4">
-        <a href="{{ path('ingredient_create') }}" class="btn btn-dark">Ajouter un nouvel ingrédient</a>
-    </div>
+                <div class="text-center mt-4">
+                    <a href="{{ path('ingredient_create') }}" class="btn btn-dark">Ajouter un nouvel ingrédient</a>
+                </div>
+            </div>
+        </div>
 
-    <!-- Bouton de retour à l'accueil -->
-    <div class="text-center mt-5">
-    <a href="{{ path('home_index') }}" class="btn btn-dark mt-3">
-        <i class="bi bi-arrow-left"></i> Retour à l’accueil
-    </a>
+        <!-- Bouton de retour à l'accueil -->
+        <div class="text-center mt-5">
+            <a href="{{ path('home_index') }}" class="btn btn-dark mt-3">
+                <i class="bi bi-arrow-left"></i> Retour à l’accueil
+            </a>
+        </div>
     </div>
-
 </div>
 {% endblock %}

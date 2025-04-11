@@ -7,9 +7,9 @@
     {% endif %}
     
     <div class="card-body">
-        <h5 class="card-title">{{ recipe.title }}</h5>
+        <h5 class="card-title text-center">{{ recipe.title }}</h5>
   
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between mt-3">
             {# Appliquer une couleur selon la difficulté #}
             <span class="
                 {% if recipe.difficulty == 'Facile' %}text-success
@@ -24,7 +24,9 @@
         </div>
   
         {# Lien vers la page de détail de la recette #}
-        <a href="{{ path('recette_show', {'id': recipe.id}) }}" class="btn btn-primary mt-3">Voir la recette</a>
+        <div class="mt-3">
+        <a href="{{ path('recette_show', {'id': recipe.id}) }}" class="btn btn-info text-white mt-3">Voir la recette</a>
+        </div>
     </div>
   </div>
   

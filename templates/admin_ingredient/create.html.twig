@@ -3,13 +3,21 @@
 {% block title %}Ajouter un ingrédient{% endblock %}
 
 {% block body %}
-<div class="container mt-5">
-    <h1 class="mb-4 text-center">Ajouter un nouvel ingrédient</h1>
-
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn btn-primary">Enregistrer</button>
-    {{ form_end(form) }}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="w-100">
+        <div class="card">
+            <div class="card-header text-center">
+                <h1>Ajouter un nouvel ingrédient</h1>
+            </div>
+            <div class="card-body">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <div class="text-center mt-5">
+                    <button class="btn btn-dark">Enregistrer</button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
 </div>
-
 {% endblock %}
