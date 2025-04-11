@@ -1,28 +1,30 @@
 <div class="card">
-  {% for image in recipe.image %}
-      <img src="{{ image.url }}" alt="{{ image.title }}" class="card-img-top" />
-  {% else %}
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAjTyV82ZnWf2TvhqzqS1Rwfcz9T0laA37aI5ess-hHQF9ylLu087Bd8y_7LNufOp_d_Qj60ohW-lJAsL0muKAzTguBwNDUWcOpTR35jmX" alt="Image non disponible" class="card-img-top" />
-  {% endfor %}
+    {# Afficher l'image de la recette si elle existe, sinon afficher une image par défaut #}
+    {% if recipe.image %}
+        <img src="{{ asset(recipe.image) }}" alt="{{ recipe.image }}" class="card-img-top" />
+    {% else %}
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAjTyV82ZnWf2TvhqzqS1Rwfcz9T0laA37aI5ess-hHQF9ylLu087Bd8y_7LNufOp_d_Qj60ohW-lJAsL0muKAzTguBwNDUWcOpTR35jmX" alt="Image non disponible" class="card-img-top" />
+    {% endif %}
+    
+    <div class="card-body">
+        <h5 class="card-title">{{ recipe.title }}</h5>
   
-  <div class="card-body">
-      <h5 class="card-title">{{ recipe.title }}</h5>
-
-      <div class="d-flex justify-content-between">
-          <!-- Apply color based on difficulty -->
-          <span class="
-              {% if recipe.difficulty == 'Facile' %}text-success
-              {% elseif recipe.difficulty == 'Moyenne' %}text-warning
-              {% elseif recipe.difficulty == 'Difficile' %}text-danger
-              {% else %}text-secondary{% endif %}">
-              {{ recipe.difficulty }}
-          </span>
-
-          <!-- Other details -->
-          <span>{{ recipe.duration }} min | {{ recipe.peopleCount }} personnes</span>
-      </div>
-
-      <!-- Lien vers la page de détail de la recette -->
-      <a href="" class="btn btn-primary mt-3">Voir la recette</a>
+        <div class="d-flex justify-content-between">
+            {# Appliquer une couleur selon la difficulté #}
+            <span class="
+                {% if recipe.difficulty == 'Facile' %}text-success
+                {% elseif recipe.difficulty == 'Moyenne' %}text-warning
+                {% elseif recipe.difficulty == 'Difficile' %}text-danger
+                {% else %}text-secondary{% endif %}">
+                {{ recipe.difficulty }}
+            </span>
+  
+            {# Afficher la durée et le nombre de personnes #}
+            <span>{{ recipe.duration }} min | {{ recipe.peopleCount }} personnes</span>
+        </div>
+  
+        {# Lien vers la page de détail de la recette #}
+        <a href="{{ path('recette_show', {'id': recipe.id}) }}" class="btn btn-primary mt-3">Voir la recette</a>
+    </div>
   </div>
-</div>
+  

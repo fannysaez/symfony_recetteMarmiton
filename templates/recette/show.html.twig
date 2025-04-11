@@ -33,12 +33,12 @@
                 <strong>Ingrédients :</strong>
                 <ul>
                     {% for ingredient in recipe.ingredients %}
-                        <li>{{ ingredient.name }} ({{ ingredient.quantity }})</li>
+                        <li>{{ ingredient.name }} </li>
                     {% endfor %}
                 </ul>
             </p>
 
-            <a href="" class="btn btn-primary">Voir la recette</a>
+            <a href="{{ path('home_index')}}" class="btn btn-primary">Retour</a>
         </div>
     </div>
 </div>
