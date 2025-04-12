@@ -14,6 +14,25 @@ Ce projet est un modèle de base pour démarrer une application Symfony 7 sous W
 - Un terminal bash (ex: Git Bash, WSL, ou Terminal VS Code)
 - Un serveur de base de données (ex: MySQL)
 
+---
+
+## 📚 Table des matières
+
+1. [🚀 Présentation du projet](#-présentation-du-projet)  
+2. [⚙️ Prérequis](#️-prérequis)  
+3. [🛠️ Installation](#️-installation)  
+4. [▶️ Lancement de l'application](#️-lancement-de-lapplication)  
+5. [🗃️ Structure du projet](#️-structure-du-projet)  
+6. [🧩 Fonctionnalités principales](#-fonctionnalités-principales)  
+7. [👤 Authentification et rôles](#-authentification-et-rôles)  
+8. [🖼️ Gestion des entités (CRUD)](#️-gestion-des-entités-crud)  
+9. [💬 Commentaires & Likes](#-commentaires--likes)  
+10. [🔎 Filtres et recherche avancée](#-filtres-et-recherche-avancée)  
+11. [🎨 Thème sombre/clair & responsive](#-thème-sombreclair--responsive)  
+12. [🧪 Données de test (fixtures)](#-données-de-test-fixtures)  
+13. [🔐 Sécurité & accès](#-sécurité--accès)  
+14. [📂 Arborescence complète](#-arborescence-complète)  
+15. [📝 Crédits & Auteurs](#-crédits--auteurs)
 
 ---
 
