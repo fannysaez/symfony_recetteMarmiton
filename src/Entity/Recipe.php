@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: RecipeRepository::class)]
+#[ORM\HasLifecycleCallbacks] // Ajout de la gestion des callbacks lifecycle
 class Recipe
 {
     #[ORM\Id]
@@ -38,14 +39,12 @@ class Recipe
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $createdAt = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updateAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'recipes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
-
-
 
     /**
      * @var Collection<int, Comment>
@@ -65,9 +64,11 @@ class Recipe
     #[ORM\ManyToMany(targetEntity: Ingredient::class, inversedBy: 'recipes')]
     private Collection $ingredients;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $description = null;
+
     public function __construct()
     {
-
         $this->comments = new ArrayCollection();
         $this->likes = new ArrayCollection();
         $this->ingredients = new ArrayCollection();
@@ -253,5 +254,28 @@ class Recipe
         $this->ingredients->removeElement($ingredient);
 
         return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function setUpdateAtValue(): void
+    {
+        if (!$this->updateAt) {
+            $this->updateAt = new \DateTime();
+        }
     }
 }

@@ -51,7 +51,6 @@ class RecipeType extends AbstractType
             ->add('peopleCount', null, [
                 'label' => 'Nombre de personnes',
             ])
-            // Liste des ingrédients avec des cases à cocher en colonne
             ->add('ingredients', EntityType::class, [
                 'class' => Ingredient::class,
                 'choice_label' => 'name',

@@ -13,6 +13,10 @@ body {
     overflow-x: hidden; /* Empêche le défilement horizontal */
 }
 
+.card-body p {
+    text-align: justify;
+}
+
 .container {
     flex-grow: 1;
     padding: 20px; /* Espace autour du contenu */

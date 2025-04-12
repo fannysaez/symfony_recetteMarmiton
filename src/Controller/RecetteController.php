@@ -7,7 +7,7 @@ use App\Form\RecipeType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
@@ -42,8 +42,17 @@ final class RecetteController extends AbstractController
             // Ajouter la date de création
             $recipe->setCreatedAt(new \DateTimeImmutable());
 
+            // Ajouter la date de mise à jour (car 'updateAt' ne doit pas être null)
+            $recipe->setUpdateAt(new \DateTimeImmutable());
+
             // Associer l'utilisateur connecté à la recette
             $recipe->setUser($this->getUser());
+
+            // Mettre à jour l'URL de l'image (vérifier si l'URL a changé)
+            $imageUrl = $form->get('image')->getData();
+            if ($imageUrl) {
+                $recipe->setImage($imageUrl); // Mettre à jour l'image
+            }
 
             // Sauvegarder la recette en base de données
             $entityManager->persist($recipe);
@@ -79,9 +88,5 @@ final class RecetteController extends AbstractController
             'recipe' => $recipe,
             'comments' => $comments
         ]);
-
-        
-
-        
     }
 }
