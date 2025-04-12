@@ -3,22 +3,33 @@
 {% block title %}Espace d'inscription{% endblock %}
 
 {% block body %}
-    <div class="container mt-4 ">
+    <div class="container mt-4">
         <h1 class="mt-5 text-center">Créer un compte</h1>
         <br>
         <div class="row justify-content-center">
             <div class="col-md-6">
                 {{ form_start(registrationForm, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
 
+                    <!-- Champ Username avant l'email -->
+                    <div class="mb-3 mt-5">
+                        {{ form_label(registrationForm.username, 'Nom d\'utilisateur', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(registrationForm.username, {'attr': {'class': 'form-control', 'placeholder': 'Votre nom d\'utilisateur'}}) }}
+                        <div class="text-danger">{{ form_errors(registrationForm.username) }}</div>
+                    </div>
+
+                    <!-- Champ Email après Username -->
                     <div class="mb-3 mt-5">
                         {{ form_label(registrationForm.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
                         {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control', 'placeholder': 'Votre email'}}) }}
                         <div class="text-danger">{{ form_errors(registrationForm.email) }}</div>
                     </div>
 
+                    <!-- Champ Mot de passe avec appui long pour voir le mot de passe -->
                     <div class="mb-3 mt-5">
                         {{ form_label(registrationForm.plainPassword, 'Mot de passe', {'label_attr': {'class': 'form-label'}}) }}
-                        {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control', 'placeholder': 'Votre mot de passe'}}) }}
+                        <div class="input-group">
+                            {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control', 'placeholder': 'Votre mot de passe', 'id': 'password', 'type': 'password'}}) }}
+                        </div>
                         <div class="text-danger">{{ form_errors(registrationForm.plainPassword) }}</div>
                     </div>
 

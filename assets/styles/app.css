@@ -91,4 +91,19 @@ footer small {
     /* object-fit: cover;  */
 }
 
+/* Masquer le mot de passe par défaut */
+#password[type="password"] {
+    font-family: 'Arial', sans-serif;
+}
+
+/* Lorsque le checkbox est coché, afficher le mot de passe */
+#toggle-password:checked + label + #password {
+    -webkit-text-security: none; /* Pour Chrome, Safari */
+    -text-security: none; /* Pour Firefox */
+}
+
+/* Changer l'icône lorsque le mot de passe est visible */
+#toggle-password:checked + label i {
+    content: '\f070'; /* Code pour l'icône "œil barré" dans Bootstrap Icons */
+}
 

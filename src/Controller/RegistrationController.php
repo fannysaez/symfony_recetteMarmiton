@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RegistrationController extends AbstractController
 {
@@ -27,19 +26,25 @@ class RegistrationController extends AbstractController
             /** @var string $plainPassword */
             $plainPassword = $form->get('plainPassword')->getData();
 
-            // encode the plain password
+            // Générer un username si ce n'est pas défini
+            if (!$user->getUsername()) {
+                // Utiliser la partie avant '@' de l'email comme username
+                $user->setUsername(substr($user->getEmail(), 0, strpos($user->getEmail(), '@')));
+            }
+
+            // Encoder le mot de passe
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
 
+            // Persist l'utilisateur dans la base de données
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // do anything else you need here, like send an email
-
+            // Connecter l'utilisateur après l'enregistrement
             return $security->login($user, AppCustomAuthenticator::class, 'main');
         }
 
         return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form,
+            'registrationForm' => $form->createView(),
         ]);
     }
 }
