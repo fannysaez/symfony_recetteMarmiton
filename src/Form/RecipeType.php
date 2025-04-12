@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints\Count;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType; // Ajouté pour le champ description
 use Doctrine\ORM\EntityManagerInterface;
 
 class RecipeType extends AbstractType
@@ -51,6 +52,7 @@ class RecipeType extends AbstractType
             ->add('peopleCount', null, [
                 'label' => 'Nombre de personnes',
             ])
+            // Liste des ingrédients avec des cases à cocher en colonne
             ->add('ingredients', EntityType::class, [
                 'class' => Ingredient::class,
                 'choice_label' => 'name',
@@ -65,6 +67,15 @@ class RecipeType extends AbstractType
                 ],
                 'attr' => [
                     'class' => 'ingredients-checkboxes', // Classe pour personnaliser l'apparence
+                ],
+            ])
+            // Ajout du champ de description
+            ->add('description', TextareaType::class, [
+                'label' => 'Description de la recette',
+                'required' => true,
+                'attr' => [
+                    'placeholder' => 'Décrivez la recette, les étapes et autres informations pertinentes...',
+                    'rows' => 5, // Limite la hauteur du champ texte
                 ],
             ]);
     }
