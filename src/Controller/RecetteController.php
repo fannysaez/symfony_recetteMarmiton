@@ -3,13 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Recipe;
+use App\Entity\Comment;
 use App\Form\RecipeType;
+use App\Form\CommentType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/recette')]
 final class RecetteController extends AbstractController
@@ -71,22 +73,42 @@ final class RecetteController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'recette_show', requirements: ['id' => '\d+'], methods: ['GET'])]
-    public function show(int $id, EntityManagerInterface $entityManager): Response
+    #[Route('/{id}', name: 'recette_show', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
+    public function show(int $id, EntityManagerInterface $entityManager, Request $request): Response
     {
-        // Récupérer la recette en fonction de l'ID
         $recipe = $entityManager->getRepository(Recipe::class)->find($id);
-        $comments = $recipe->getComments();
-
-        // Vérifier si la recette existe
+    
         if (!$recipe) {
             throw $this->createNotFoundException('Recette non trouvée');
         }
-
-        // Renvoyer la recette dans la vue
+    
+        // Récupération des commentaires associés à la recette
+        $comments = $recipe->getComments();
+    
+        // Création du formulaire de commentaire
+        $comment = new Comment();
+        $comment->setRecipe($recipe);
+        $comment->setCreatedAt(new \DateTimeImmutable());
+    
+        if ($this->getUser()) {
+            $comment->setUser($this->getUser());
+        }
+    
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($comment);
+            $entityManager->flush();
+    
+            $this->addFlash('success', 'Votre commentaire a bien été ajouté.');
+    
+            return $this->redirectToRoute('recette_show', ['id' => $id]);
+        }
+    
         return $this->render('recette/show.html.twig', [
             'recipe' => $recipe,
-            'comments' => $comments
+            'comments' => $comments,
+            'commentForm' => $form->createView(),
         ]);
-    }
-}
+    }}

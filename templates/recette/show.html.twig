@@ -25,16 +25,13 @@
             <h1 class="card-header text-center">{{ recipe.title }}</h1>
 
             <div class="row g-0 py-4 mb-3">
-                <!-- Colonne pour l'image -->
                 <div class="col-md-4 center-image">
-                    {# Affichage de l'image si disponible, sinon image par défaut #}
                     {% if recipe.image %}
                         <img src="{{ recipe.image }}" alt="{{ recipe.title }}" class="card-img-top rounded img-fluid mx-auto d-block py-5" style="max-width: 300px;" />
                     {% else %}
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAjTyV82ZnWf2TvhqzqS1Rwfcz9T0laA37aI5ess-hHQF9ylLu087Bd8y_7LNufOp_d_Qj60ohW-lJAsL0muKAzTguBwNDUWcOpTR35jmX" alt="Image non disponible" class="card-img-top rounded img-fluid mx-auto d-block py-5" style="max-width: 300px;" />
                     {% endif %}
                 </div>
-                <!-- Colonne pour la description -->
                 <div class="col-md-8 py-1">
                     <div class="card-body">
                         <p class="card-text text-justify mb-4">{{ recipe.description }}</p>
@@ -42,19 +39,18 @@
                 </div>
             </div>
 
-            <!-- Section avec la durée, le nombre de personnes et la difficulté dans un encadré -->
             <div class="card mb-3 p-4 shadow-sm" style="border: 1px solid #ddd;">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center">
-                        <i class="fas fa-clock me-2"></i> <!-- Icône de la durée -->
+                        <i class="fas fa-clock me-2"></i>
                         <p class="mb-0">Durée : {{ recipe.duration }} min</p>
                     </div>
                     <div class="d-flex align-items-center">
-                        <i class="fas fa-users me-2"></i> <!-- Icône du nombre de personnes -->
+                        <i class="fas fa-users me-2"></i>
                         <p class="mb-0">Nombre de personnes : {{ recipe.peopleCount }}</p>
                     </div>
                     <div class="d-flex align-items-center">
-                        <i class="fas fa-star me-2" style="color: #f39c12;"></i> <!-- Icône de la difficulté -->
+                        <i class="fas fa-star me-2" style="color: #f39c12;"></i>
                         <p class="mb-0" style="color: #f39c12;">Difficulté : {{ recipe.difficulty }}</p>
                     </div>
                 </div>
@@ -65,10 +61,39 @@
             </div>
         </div>
 
-        {# Affichage des commentaires avec la même largeur que la card body #}
+        {# Formulaire pour ajouter un commentaire #}
+        {% if app.user %}
+            <div class="card p-4 shadow-sm mb-4 {{ app.session.get('theme') == 'dark' ? 'bg-dark text-light' : '' }}">
+                <h5 class="card-title mb-3">Ajouter un commentaire</h5>
+                {{ form_start(commentForm) }}
+                    <div class="mb-3">
+                        {{ form_label(commentForm.content, 'Votre commentaire') }}
+                        {{ form_widget(commentForm.content, {
+                            'attr': {
+                                'class': 'form-control',
+                                'placeholder': 'Exprimez-vous ici...'
+                            }
+                        }) }}
+                        {{ form_errors(commentForm.content) }}
+                    </div>
+                    
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-dark">Publier</button>
+                    </div>
+                    
+                {{ form_end(commentForm) }}
+            </div>
+        {% else %}
+            <div class="alert alert-info text-center my-4">
+                <a href="{{ path('app_login') }}">Connectez-vous</a> pour laisser un commentaire.
+            </div>
+        {% endif %}
+
+        {# Liste des commentaires #}
         <div class="card mb-3 p-4 shadow-sm" style="max-width: 100%;">
+            <h5 class="card-title">Commentaires</h5>
             {% for comment in comments %}
-                <div class="card mb-3 shadow-sm w-100" style="max-width: 100%; margin-bottom: 15px;">
+                <div class="card mb-3 shadow-sm w-100">
                     <div class="card-header d-flex justify-content-between">
                         <span><strong>{{ comment.user.username }}</strong></span>
                         <span class="text-muted">{{ comment.createdAt|date("d/m/Y") }}</span>
