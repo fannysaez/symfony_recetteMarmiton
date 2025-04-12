@@ -117,10 +117,6 @@ Ce projet est un modèle de base pour démarrer une application Symfony 7 sous W
 
 ---
 
-## ⚙️ Étapes de création du projet
-
-### 1. Création du projet Symfony
-
-```bash
-symfony new projet_blanc --webapp
-cd projet_blanc
+<p align="center">
+  <a href="Procedures A à Z/installation.md">Suivant</a>
+</p>
