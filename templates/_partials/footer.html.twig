@@ -1,15 +1,15 @@
 <footer id="site-footer" class="mt-5">
-    <div class="container py-4">
-        <div class="row justify-content-center align-items-center g-4"> <!-- Centrage des éléments -->
+    <div class="container-fluid px-4 py-4"> <!-- Ajouter du padding horizontal avec px-4 -->
+        <div class="row justify-content-between align-items-center g-4"> <!-- Espacement entre les colonnes -->
             <!-- Logo et description (à gauche) -->
-            <div class="col-md-4 mb-3 text-center"> <!-- Centré dans la colonne -->
-                <div class="d-flex justify-content-center align-items-center">
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo" width="40" height="40" class="me-2">
+            <div class="col-md-4 mb-3 text-center text-md-start"> <!-- Alignement au centre et à gauche pour les grands écrans -->
+                <div class="d-flex flex-column align-items-center justify-content-center"> <!-- Ajout de flex-column pour empiler les éléments verticalement -->
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo" width="40" height="40" class="me-2 mb-2"> <!-- Marge en bas de l'image -->
                     <h5 class="mb-0">Marmiton</h5>
+                    <p>Partagez, créez et découvrez les meilleures recettes maison.</p>
                 </div>
-                <p>Partagez, créez et découvrez les meilleures recettes maison.</p>
             </div>
-
+            
             <!-- Liens de navigation (au centre) -->
             <div class="col-md-4 text-center mb-3">
                 <h5 class="footer-title">Navigation</h5>
@@ -27,7 +27,7 @@
             </div>
 
             <!-- Contact & réseaux sociaux (à droite) -->
-            <div class="col-md-4 text-center mb-3"> <!-- Centré dans la colonne -->
+            <div class="col-md-4 text-center mb-3"> <!-- Aligné à droite -->
                 <h5 class="footer-title">Contact</h5>
                 <p>Email : <a href="mailto:exemple@marmiton.com" class="footer-link">exemple@marmiton.com</a></p>
 
