@@ -12,15 +12,21 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\CommentRepository;
 
 #[Route('/recette')]
 final class RecetteController extends AbstractController
 {
     #[Route('/', name: 'recette_index')]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(EntityManagerInterface $entityManager, CommentRepository $commentRepository): Response
     {
         // Récupérer toutes les recettes
         $recipes = $entityManager->getRepository(Recipe::class)->findAll();
+
+        // Ajouter le nombre de commentaires à chaque recette
+        foreach ($recipes as $recipe) {
+            $recipe->commentCount = $commentRepository->count(['recipe' => $recipe]);
+        }
 
         // Retourner la vue avec les recettes récupérées
         return $this->render('recette/index.html.twig', [
@@ -111,4 +117,5 @@ final class RecetteController extends AbstractController
             'comments' => $comments,
             'commentForm' => $form->createView(),
         ]);
-    }}
+    }
+}

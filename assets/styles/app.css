@@ -9,8 +9,8 @@ html {
 body {
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Minimum 100% de la hauteur de la fenêtre */
-    overflow-x: hidden; /* Empêche le défilement horizontal */
+    min-height: 100vh; 
+    overflow-x: hidden; 
 }
 
 .card-body p {
@@ -19,12 +19,12 @@ body {
 
 .container {
     flex-grow: 1;
-    padding: 20px; /* Espace autour du contenu */
+    padding: 20px; 
 }
 
 footer {
     width: 100%;
-    background-color: #343a40; /* Couleur de fond pour le footer */
+    background-color: #343a40; 
     color: white;
     margin-top: 50px;
 }
@@ -36,9 +36,9 @@ footer small {
 /* Désactiver l'effet hover pour les boutons "Connexion" et "Inscription" */
 .navbar .nav-link.btn.btn-outline-primary:hover,
 .navbar .nav-link.btn.btn-outline-success:hover {
-    background-color: none; /* Aucune couleur de fond au survol */
-    border-color: inherit; /* Conserver la bordure originale */
-    color: white; /* Conserver la couleur du texte */
+    background-color: none; 
+    border-color: inherit; 
+    color: white; 
 }
 
 .navbar .nav-link.btn.btn-outline-primary {
@@ -76,3 +76,19 @@ footer small {
 .ingredients-checkboxes > div > label:nth-child(n+6) {
     display: none; 
 }
+
+.card-body .d-flex span {
+    white-space: nowrap;
+}
+.card-img-container {
+    height: 200px; 
+    overflow: hidden;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 100%;
+    /* object-fit: cover;  */
+}
+
+

@@ -1,16 +1,24 @@
-<div class="card">
-    {# Afficher l'image de la recette si elle existe, sinon afficher une image par défaut #}
-    {% if recipe.image %}
-        <img src="{{ asset(recipe.image) }}" alt="{{ recipe.image }}" class="card-img-top" />
-    {% else %}
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAjTyV82ZnWf2TvhqzqS1Rwfcz9T0laA37aI5ess-hHQF9ylLu087Bd8y_7LNufOp_d_Qj60ohW-lJAsL0muKAzTguBwNDUWcOpTR35jmX" alt="Image non disponible" class="card-img-top" />
+<div class="card h-100 d-flex flex-column shadow-sm position-relative">
+    {# Ruban "Nouveau" ou "Top" selon la condition #}
+    {% if recipe.createdAt is defined and recipe.createdAt > date('-7 days') %}
+        <span class="badge bg-danger position-absolute top-0 start-0 m-2">Nouveau</span>
+    {% elseif recipe.likes|length > 10 %}
+        <span class="badge bg-warning text-dark position-absolute top-0 start-0 m-2">Top</span>
     {% endif %}
     
-    <div class="card-body">
-        <h5 class="card-title text-center">{{ recipe.title }}</h5>
-  
-        <div class="d-flex justify-content-between mt-3">
-            {# Appliquer une couleur selon la difficulté #}
+    {# Image de la recette #}
+    <div class="card-img-container">
+        {% if recipe.image %}
+            <img src="{{ asset(recipe.image) }}" alt="{{ recipe.title }}" class="card-img-top" />
+        {% else %}
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAjTyV82ZnWf2TvhqzqS1Rwfcz9T0laA37aI5ess-hHQF9ylLu087Bd8y_7LNufOp_d_Qj60ohW-lJAsL0muKAzTguBwNDUWcOpTR35jmX" alt="Image non disponible" class="card-img-top" />
+        {% endif %}
+    </div>
+
+    <div class="card-body d-flex flex-column">
+        <h5 class="card-title text-center mb-3">{{ recipe.title }}</h5>
+
+        <div class="d-flex justify-content-between small">
             <span class="
                 {% if recipe.difficulty == 'Facile' %}text-success
                 {% elseif recipe.difficulty == 'Moyenne' %}text-warning
@@ -18,15 +26,15 @@
                 {% else %}text-secondary{% endif %}">
                 {{ recipe.difficulty }}
             </span>
-  
-            {# Afficher la durée et le nombre de personnes #}
-            <span>{{ recipe.duration }} min | {{ recipe.peopleCount }} personnes</span>
+            <span class="text-muted">
+                {{ recipe.duration }} min | {{ recipe.peopleCount }} pers.
+            </span>
         </div>
-  
-        {# Lien vers la page de détail de la recette #}
-        <div class="mt-3">
-        <a href="{{ path('recette_show', {'id': recipe.id}) }}" class="btn btn-info text-white mt-3">Voir la recette</a>
+
+        <div class="mt-auto">
+            <a href="{{ path('recette_show', {'id': recipe.id}) }}" class="btn btn-info text-white mt-4 w-100">
+                Voir la recette
+            </a>
         </div>
     </div>
-  </div>
-  
+</div>

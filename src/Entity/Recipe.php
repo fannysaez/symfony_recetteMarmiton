@@ -278,4 +278,10 @@ class Recipe
             $this->updateAt = new \DateTime();
         }
     }
+
+    public function isNew(): bool
+{
+    return $this->createdAt >= new \DateTimeImmutable('-7 days');
+}
+
 }

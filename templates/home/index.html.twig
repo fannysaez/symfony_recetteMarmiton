@@ -12,20 +12,20 @@
     </div>
 </div>
 
+<!-- Section des recettes -->
 <section>
     <div class="container">
-        <div class="row g-3">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
             {% for recipe in recipes %}
-                <div class="col-md-3">
+                <div class="col d-flex">
                     {% include "_partials/recipe-card.html.twig" with { 'recipe': recipe } %}
                 </div>
             {% else %}
-                <div class="col-12">
-                    <p>Aucune recette disponible.</p>
+                <div class="col-12 text-center">
+                    <p class="text-muted">Aucune recette disponible.</p>
                 </div>
             {% endfor %}
         </div>
     </div>
 </section>
-
 {% endblock %}
