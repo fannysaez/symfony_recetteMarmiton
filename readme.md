@@ -36,7 +36,7 @@ Ce projet est un modèle de base pour démarrer une application Symfony 7 sous W
 
 ---
 
-# Structure Complète du Projet SYMFONY_RECETTEMARMITON
+# Structure de Projet 
 
 📁 Symfony_recetteMarmiton  
 ├── 📂 assets/ ---------------------------> Fichiers front-end non compilés (JS, CSS, images)  
