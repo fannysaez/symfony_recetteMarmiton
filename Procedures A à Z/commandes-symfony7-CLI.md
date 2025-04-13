@@ -76,5 +76,5 @@
 ---
 
 <p align="center">
-  <a href="Procedures A à Z/commandes-symfony7-CLI.md">Suivant</a>
+  <a href="Procedures A à Z/commandes-collaboration.md">Suivant</a>
 </p>
