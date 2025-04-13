@@ -22,6 +22,7 @@ Ce projet est un modèle de base pour démarrer une application Symfony 7 sous W
 [⚙️ Prérequis](#️-prérequis)  
 [🛠️ Installation](#️-installation)  
 [▶️ Lancement de l'application](#️-lancement-de-lapplication)   
+
   - [🔧 Commandes Symfony 7 CLI](#-commandes-symfony-7-cli)  
   - [🔒 Sécurité et Authentification](#-sécurité-et-authentification)  
   - [🧩 Fonctionnalités principales](#-fonctionnalités-principales)  
