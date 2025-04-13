@@ -35,82 +35,83 @@ Ce projet est un modèle de base pour démarrer une application Symfony 7 sous W
 
 # Structure de Projet 
 
-📁 Symfony_recetteMarmiton  
-├── 📂 assets/ ------------------------------------------------------> # Fichiers front-end (JS, CSS, images)  
-│   ├── 📂 controllers/ ---------------------------------------------> # Contrôleurs JS (Stimulus)  
-│   │   └── 📜 hello_controller.js ----------------------------------> # Exemple de contrôleur Stimulus  
-│   ├── 📂 images/ --------------------------------------------------> # Images brutes utilisées dans le projet  
-│   │   └── 🖼️ logo.png ---------------------------------------------> # Logo du site  
-│   ├── 📂 js/ ------------------------------------------------------> # Scripts JS personnalisés  
-│   │   └── 📜 theme.js ---------------------------------------------> # Script de gestion du thème sombre/clair  
-│   └── 📂 styles/ --------------------------------------------------> # Fichiers CSS personnalisés  
-│       └── 🎨 app.css ----------------------------------------------> # CSS principal  
-├── 📂 bin/ ---------------------------------------------------------> # Binaire de la console Symfony  
-│   └── 📜 console --------------------------------------------------> # Commande CLI Symfony  
-├── 📂 config/ ------------------------------------------------------> # Fichiers de configuration du projet  
-│   ├── 📂 packages/ ------------------------------------------------> # Config des bundles (Doctrine, Twig, Security...)  
-│   │   ├── 📜 doctrine.yaml ----------------------------------------> # Configuration de la base de données  
-│   │   ├── 📜 twig.yaml --------------------------------------------> # Configuration du moteur de templates Twig  
-│   │   └── 📜 security.yaml ----------------------------------------> # Configuration des rôles et de l'accès  
-│   ├── 📂 routes/ --------------------------------------------------> # Définition des routes supplémentaires  
-│   │   └── 📜 annotations.yaml -------------------------------------> # Chargement des routes par annotations  
-│   ├── 📜 routes.yaml ----------------------------------------------> # Routes principales globales  
-│   └── 📜 services.yaml --------------------------------------------> # Déclaration des services personnalisés  
-├── 📂 migrations/ --------------------------------------------------> # Migrations Doctrine (structure BDD)  
-│   └── 📜 VersionXXXXXX.php ----------------------------------------> # Fichier de migration généré automatiquement  
-├── 📂 public/ ------------------------------------------------------> # Dossier exposé au navigateur (web root)  
-│   ├── 📂 css/ -----------------------------------------------------> # CSS généré (via Webpack Encore)  
-│   ├── 📂 js/ ------------------------------------------------------> # JS généré  
-│   └── 📜 index.php ------------------------------------------------> # Point d'entrée de l'application Symfony  
-├── 📂 src/ ---------------------------------------------------------> # Code source de l'application (backend)  
-│   ├── 📂 Controller/ ----------------------------------------------> # Contrôleurs gérant les routes et la logique  
-│   │   ├── 📜 RecipeController.php ---------------------------------> # Contrôleur des recettes  
-│   │   ├── 📜 CommentController.php --------------------------------> # Contrôleur des commentaires  
-│   │   └── 📜 SecurityController.php -------------------------------> # Connexion / déconnexion  
-│   ├── 📂 Entity/ --------------------------------------------------> # Entités Doctrine = Modèles de données  
-│   │   ├── 📜 Recipe.php -------------------------------------------> # Entité Recette  
-│   │   ├── 📜 Ingredient.php ---------------------------------------> # Entité Ingrédient  
-│   │   ├── 📜 Comment.php ------------------------------------------> # Entité Commentaire  
-│   │   ├── 📜 Like.php ---------------------------------------------> # Entité Like  
-│   │   └── 📜 User.php ---------------------------------------------> Entité Utilisateur  
-│   ├── 📂 Form/ ----------------------------------------------------> Formulaires Symfony liés aux entités  
-│   │   ├── 📜 RecipeType.php ---------------------------------------> Formulaire de recette  
-│   │   ├── 📜 CommentType.php --------------------------------------> Formulaire de commentaire  
-│   │   ├── 📜 IngredientType.php -----------------------------------> Formulaire d'ingrédient  
-│   │   └── 📜 RegistrationFormType.php -----------------------------> Formulaire d’inscription utilisateur  
-│   ├── 📂 Repository/ ----------------------------------------------> Requêtes personnalisées (Doctrine)  
-│   │   ├── 📜 RecipeRepository.php ---------------------------------> Requêtes liées aux recettes  
-│   │   ├── 📜 CommentRepository.php --------------------------------> Requêtes liées aux commentaires  
-│   │   └── 📜 UserRepository.php -----------------------------------> Requêtes liées aux utilisateurs  
-│   └── 📂 Security/ ------------------------------------------------> Sécurité, login, authentification  
-│       ├── 📜 AppCustomAuthenticator.php ---------------------------> Authentificateur personnalisé  
-│       └── 📜 Kernel.php -------------------------------------------> Configuration du noyau Symfony  
-├── 📂 templates/ ---------------------------------------------------> Templates Twig (vue HTML)  
-│   ├── 📂 _partials/ -----------------------------------------------> Morceaux réutilisables de template  
-│   │   ├── 📜 header.html.twig -------------------------------------> En-tête du site  
-│   │   ├── 📜 footer.html.twig -------------------------------------> Pied de page  
-│   │   └── 📜 recipe-card.html.twig --------------------------------> Affichage d'une recette en carte  
-│   ├── 📂 admin/ ---------------------------------------------------> Dashboard Admin  
-│   │   └── 📜 index.html.twig --------------------------------------> Accueil admin  
-│   ├── 📂 admin_ingredient/ ----------------------------------------> Gestion des ingrédients (admin)  
-│   │   ├── 📜 create.html.twig -------------------------------------> Formulaire ajout ingrédient  
-│   │   ├── 📜 index.html.twig --------------------------------------> Liste des ingrédients  
-│   │   └── 📜 _ingredient-card.html.twig ---------------------------> Carte ingrédient admin  
-│   ├── 📂 comment/ -------------------------------------------------> Affichage des commentaires  
-│   │   └── 📜 index.html.twig --------------------------------------> Liste des commentaires  
-│   ├── 📂 home/ ----------------------------------------------------> Page d’accueil du site  
-│   │   └── 📜 index.html.twig --------------------------------------> Recettes populaires  
-│   ├── 📂 ingredient/ ----------------------------------------------> Pages des ingrédients (front utilisateur)  
-│   │   ├── 📜 index.html.twig --------------------------------------> Liste des ingrédients  
-│   │   └── 📜 list.html.twig ---------------------------------------> Détail d’un ingrédient  
-│   ├── 📂 recette/ -------------------------------------------------> Pages de gestion des recettes  
-│   │   ├── 📜 create.html.twig -------------------------------------> Création d’une recette  
-│   │   ├── 📜 index.html.twig --------------------------------------> Liste des recettes  
-│   │   └── 📜 show.html.twig ---------------------------------------> Détail d’une recette  
-│   └── 📂 registration/ --------------------------------------------> Pages liées à l’inscription  
-│       └── 📜 register.html.twig -----------------------------------> Formulaire d’inscription  
-├── 📂 translations/ ------------------------------------------------> Fichiers de traduction (i18n)  
-│   └── 📜 messages.fr.yaml -----------------------------------------> Traductions en français
+📁 **Symfony_recetteMarmiton**  
+├── 📂 **assets/** ------------------------------------------------------> _Fichiers front-end (JS, CSS, images)_  
+│   ├── 📂 **controllers/** ---------------------------------------------> _Contrôleurs JS (Stimulus)_  
+│   │   └── 📜 **hello_controller.js** ----------------------------------> _Exemple de contrôleur Stimulus_  
+│   ├── 📂 **images/** --------------------------------------------------> _Images utilisées dans le projet_  
+│   │   └── 🖼️ **logo.png** ---------------------------------------------> _Logo du site_  
+│   ├── 📂 **js/** ------------------------------------------------------> _Scripts JS personnalisés_  
+│   │   └── 📜 **theme.js** ---------------------------------------------> _Script de gestion du thème sombre/clair_  
+│   └── 📂 **styles/** --------------------------------------------------> _Fichiers CSS personnalisés_  
+│       └── 🎨 **app.css** ----------------------------------------------> _CSS principal_  
+├── 📂 **bin/** ---------------------------------------------------------> _Binaire de la console Symfony_  
+│   └── 📜 **console** --------------------------------------------------> _Commande CLI Symfony_  
+├── 📂 **config/** ------------------------------------------------------> _Fichiers de configuration du projet_  
+│   ├── 📂 **packages/** ------------------------------------------------> _Configuration des bundles (Doctrine, Twig, Security, etc.)_  
+│   │   ├── 📜 **doctrine.yaml** ----------------------------------------> _Configuration de la base de données_  
+│   │   ├── 📜 **twig.yaml** --------------------------------------------> _Configuration du moteur de templates Twig_  
+│   │   └── 📜 **security.yaml** ----------------------------------------> _Configuration des rôles et de l'accès_  
+│   ├── 📂 **routes/** --------------------------------------------------> _Définition des routes supplémentaires_  
+│   │   └── 📜 **annotations.yaml** -------------------------------------> _Chargement des routes par annotations_  
+│   ├── 📜 **routes.yaml** ----------------------------------------------> _Routes principales globales_  
+│   └── 📜 **services.yaml** --------------------------------------------> _Déclaration des services personnalisés_  
+├── 📂 **migrations/** --------------------------------------------------> _Migrations Doctrine (structure BDD)_  
+│   └── 📜 **VersionXXXXXX.php** ----------------------------------------> _Fichier de migration généré automatiquement_  
+├── 📂 **public/** ------------------------------------------------------> _Dossier exposé au navigateur (web root)_  
+│   ├── 📂 **css/** -----------------------------------------------------> _CSS généré (via Webpack Encore)_  
+│   ├── 📂 **js/** ------------------------------------------------------> _JS généré_  
+│   └── 📜 **index.php** ------------------------------------------------> _Point d'entrée de l'application Symfony_  
+├── 📂 **src/** ---------------------------------------------------------> _Code source de l'application (backend)_  
+│   ├── 📂 **Controller/** ----------------------------------------------> _Contrôleurs gérant les routes et la logique_  
+│   │   ├── 📜 **RecipeController.php** ---------------------------------> _Contrôleur des recettes_  
+│   │   ├── 📜 **CommentController.php** --------------------------------> _Contrôleur des commentaires_  
+│   │   └── 📜 **SecurityController.php** -------------------------------> _Connexion / déconnexion_  
+│   ├── 📂 **Entity/** --------------------------------------------------> _Entités Doctrine = Modèles de données_  
+│   │   ├── 📜 **Recipe.php** -------------------------------------------> _Entité Recette_  
+│   │   ├── 📜 **Ingredient.php** ---------------------------------------> _Entité Ingrédient_  
+│   │   ├── 📜 **Comment.php** ------------------------------------------> _Entité Commentaire_  
+│   │   ├── 📜 **Like.php** ---------------------------------------------> _Entité Like_  
+│   │   └── 📜 **User.php** ---------------------------------------------> _Entité Utilisateur_  
+│   ├── 📂 **Form/** ----------------------------------------------------> _Formulaires Symfony liés aux entités_  
+│   │   ├── 📜 **RecipeType.php** ---------------------------------------> _Formulaire de recette_  
+│   │   ├── 📜 **CommentType.php** --------------------------------------> _Formulaire de commentaire_  
+│   │   ├── 📜 **IngredientType.php** -----------------------------------> _Formulaire d'ingrédient_  
+│   │   └── 📜 **RegistrationFormType.php** -----------------------------> _Formulaire d’inscription utilisateur_  
+│   ├── 📂 **Repository/** ----------------------------------------------> _Requêtes personnalisées (Doctrine)_  
+│   │   ├── 📜 **RecipeRepository.php** ---------------------------------> _Requêtes liées aux recettes_  
+│   │   ├── 📜 **CommentRepository.php** --------------------------------> _Requêtes liées aux commentaires_  
+│   │   └── 📜 **UserRepository.php** -----------------------------------> _Requêtes liées aux utilisateurs_  
+│   └── 📂 **Security/** ------------------------------------------------> _Sécurité, login, authentification_  
+│       ├── 📜 **AppCustomAuthenticator.php** ---------------------------> _Authentificateur personnalisé_  
+│       └── 📜 **Kernel.php** -------------------------------------------> _Configuration du noyau Symfony_  
+├── 📂 **templates/** ---------------------------------------------------> _Templates Twig (vue HTML)_  
+│   ├── 📂 **_partials/** -----------------------------------------------> _Morceaux réutilisables de template_  
+│   │   ├── 📜 **header.html.twig** -------------------------------------> _En-tête du site_  
+│   │   ├── 📜 **footer.html.twig** -------------------------------------> _Pied de page_  
+│   │   └── 📜 **recipe-card.html.twig** --------------------------------> _Affichage d'une recette en carte_  
+│   ├── 📂 **admin/** ---------------------------------------------------> _Dashboard Admin_  
+│   │   └── 📜 **index.html.twig** --------------------------------------> _Accueil admin_  
+│   ├── 📂 **admin_ingredient/** ----------------------------------------> _Gestion des ingrédients (admin)_  
+│   │   ├── 📜 **create.html.twig** -------------------------------------> _Formulaire ajout ingrédient_  
+│   │   ├── 📜 **index.html.twig** --------------------------------------> _Liste des ingrédients_  
+│   │   └── 📜 **_ingredient-card.html.twig** ---------------------------> _Carte ingrédient admin_  
+│   ├── 📂 **comment/** -------------------------------------------------> _Affichage des commentaires_  
+│   │   └── 📜 **index.html.twig** --------------------------------------> _Liste des commentaires_  
+│   ├── 📂 **home/** ----------------------------------------------------> _Page d’accueil du site_  
+│   │   └── 📜 **index.html.twig** --------------------------------------> _Recettes populaires_  
+│   ├── 📂 **ingredient/** ----------------------------------------------> _Pages des ingrédients (front utilisateur)_  
+│   │   ├── 📜 **index.html.twig** --------------------------------------> _Liste des ingrédients_  
+│   │   └── 📜 **list.html.twig** ---------------------------------------> _Détail d’un ingrédient_  
+│   ├── 📂 **recette/** -------------------------------------------------> _Pages de gestion des recettes_  
+│   │   ├── 📜 **create.html.twig** -------------------------------------> _Création d’une recette_  
+│   │   ├── 📜 **index.html.twig** --------------------------------------> _Liste des recettes_  
+│   │   └── 📜 **show.html.twig** ---------------------------------------> _Détail d’une recette_  
+│   └── 📂 **registration/** --------------------------------------------> _Pages liées à l’inscription_  
+│       └── 📜 **register.html.twig** -----------------------------------> _Formulaire d’inscription_  
+├── 📂 **translations/** ------------------------------------------------> _Fichiers de traduction (i18n)_  
+│   └── 📜 **messages.fr.yaml** -----------------------------------------> _Traductions en français_  
+
 
 ---
 
