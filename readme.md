@@ -35,8 +35,12 @@ Ce projet est un modèle de base pour démarrer une application Symfony 7 sous W
 
 # Structure de Projet 
 
-📁 Symfony_recetteMarmiton
-  
+# Structure du Projet
+
+La structure du projet `Symfony_recetteMarmiton` est la suivante :
+
+```plaintext
+📁 Symfony_recetteMarmiton  
 ├── 📂 **assets/**                                                         _Fichiers front-end (JS, CSS, images)_  
 │   ├── 📂 **controllers/**                                                _Contrôleurs JS (Stimulus)_  
 │   │   └── 📜 **hello_controller.js**                                     _Exemple de contrôleur Stimulus_  
@@ -112,6 +116,7 @@ Ce projet est un modèle de base pour démarrer une application Symfony 7 sous W
 │       └── 📜 **register.html.twig**                                      _Formulaire d’inscription_  
 ├── 📂 **translations/**                                                   _Fichiers de traduction (i18n)_  
 │   └── 📜 **messages.fr.yaml**                                            _Traductions en français_  
+
 
 
 ---
