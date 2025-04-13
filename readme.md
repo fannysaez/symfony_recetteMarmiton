@@ -145,7 +145,7 @@ symfony serve
 
 ## 🧪 Configuration de la base de données
 
-Dans le fichier .env, configurer la ligne :
+Dans le fichier `.env`, configurer la ligne :
 
 ```env
 DATABASE_URL="mysql://user:password@127.0.0.1:3306/nom_de_ta_base"
