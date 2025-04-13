@@ -26,7 +26,6 @@ Ce projet est un modèle de base pour démarrer une application Symfony 7 sous W
   - [🤝 Commandes Collaboration](commandes-collaboration.md)  
   - [🌐 Projet Symfony-GitHub](projetSymfony-GitHub.md)  
   - [🛠️ Commandes Générales](commandes.md)  
- 
       - [🔒 Sécurité et Authentification](#-sécurité-et-authentification)  
       - [🧩 Fonctionnalités principales](#-fonctionnalités-principales)  
       - [💬 Commentaires](#-commentaires)  
