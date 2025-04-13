@@ -32,8 +32,6 @@ Ce projet est un modèle de base pour démarrer une application Symfony 7 sous W
       - [🔎 Recherche et filtres](#-recherche-et-filtres)  
       - [🎨 Thème sombre/clair & responsive](#-thème-sombreclair--responsive)  
 
-[📝 Crédits & Auteurs](#-crédits--auteurs)
-
 ---
 
 # Structure de Projet 
