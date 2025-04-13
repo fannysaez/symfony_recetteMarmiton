@@ -2,12 +2,13 @@
 
 ## Sommaire
 
-- [Installation des dépendances via npm](#installation-des-dépendances-via-npm)
+- [Installation des dépendances via npm](#installation-des-d%C3%A9pendances-via-npm)
 - [Importer Bootstrap via Importmap](#importer-bootstrap-via-importmap)
 - [Commandes Symfony 7 CLI - Principales](#commandes-symfony-7-cli---principales)
-- [Commandes Symfony 7 - Création de commandes et filtres personnalisés](#commandes-symfony-7---création-de-commandes-et-filtres-personnalisés)
-- [Revenir en arrière après avoir modifié une entité](#revenir-en-arrière-après-avoir-modifié-une-entité)
-- [Outils de débogage principaux](#outils-de-débogage-principaux)
+- [Commandes Symfony 7 - Création de commandes et filtres personnalisés](#commandes-symfony-7---cr%C3%A9ation-de-commandes-et-filtres-personnalis%C3%A9s)
+- [Revenir en arrière après avoir modifié une entité](#revenir-en-arri%C3%A8re-apr%C3%A8s-avoir-modifi%C3%A9-une-entit%C3%A9)
+- [Outils de débogage principaux](#outils-de-d%C3%A9bogage-principaux)
+- [Mes Projets](#mes-projets)
 
 ---
 
@@ -71,6 +72,17 @@
 |-------|-------------|
 | `symfony console debug:router` | Affiche la liste des routes disponibles. |
 | `symfony console debug:twig` | Affiche les extensions Twig activées. |
+
+---
+
+## Mes Projets
+
+| Projet                                                                 | Description                                                    | Technologies         |
+|------------------------------------------------------------------------|----------------------------------------------------------------|----------------------|
+| **[App-MeteoZen](https://github.com/fannysaez/App-MeteoZen)**          | Application météo collaborative responsive                     | HTML, CSS, JS        |
+| **[CV en ligne](https://fannysaez.github.io/cv-en-ligne/)**            | Curriculum Vitae interactif en ligne                           | HTML, CSS, GitHub    |
+| **[Portfolio](https://fannysaez.github.io/my_portfolio/)**             | Site personnel de présentation de mes projets                  | HTML, CSS, JS        |
+| **[Flanano Symfony](https://github.com/HeyAnto/flanano-symfony)**      | Catalogue de produits avec interface admin *(collab. binôme)*  | Symfony, PHP, SQL    |
 
 ---
 
