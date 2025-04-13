@@ -140,8 +140,23 @@ symfony serve
 2. Accéder à l'application :
 
 * Ouvrez votre navigateur et allez à `http://localhost:8000`.
+
 --- 
 
+## 🧪 Configuration de la base de données
+
+Dans le fichier .env, configurer la ligne :
+
+```env
+DATABASE_URL="mysql://user:password@127.0.0.1:3306/nom_de_ta_base"
+```
+
+ensuite :
+
+```bash
+symfony console doctrine:database:create
+```
+---
 <p align="center">
   <a href="Procedures A à Z/commandes-symfony7-CLI.md">Suivant</a>
 </p>
