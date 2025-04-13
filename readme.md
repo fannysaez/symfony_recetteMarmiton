@@ -24,12 +24,16 @@ Ce projet est un modèle de base pour démarrer une application Symfony 7 sous W
 [▶️ Lancement de l'application](#️-lancement-de-lapplication)   
 
   - [🔧 Commandes Symfony 7 CLI](#-commandes-symfony-7-cli)  
+  - [🔧 Commandes Collaboration](#-commandes-collaboration)
+  - [🔧 Commandes Git](#-commandes-git)
+  - [🔧 Commandes](#-commandes)  
+
   - [🔒 Sécurité et Authentification](#-sécurité-et-authentification)  
   - [🧩 Fonctionnalités principales](#-fonctionnalités-principales)  
   - [💬 Commentaires](#-commentaires)  
   - [🔎 Recherche et filtres](#-recherche-et-filtres)  
   - [🎨 Thème sombre/clair & responsive](#-thème-sombreclair--responsive)  
-  
+
       - [📂 Arborescence complète](#-arborescence-complète)  
       - [📝 Crédits & Auteurs](#-crédits--auteurs)
 
