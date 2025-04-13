@@ -20,8 +20,8 @@ Ce projet est un modèle de base pour démarrer une application Symfony 7 sous W
 
 * [🚀 Présentation du projet](#-présentation-du-projet)  
 * [⚙️ Prérequis](#️-prérequis)  
-* [🛠️ Installation](#️-installation)  
-* [▶️ Lancement de l'application](#️-lancement-de-lapplication)   
+* [🛠️ Installation](#-installation)  
+* [▶️ Lancement de l'application](#️-lancement-de-lapplication)  
   - [🔧 Commandes Symfony 7 CLI](#-commandes-symfony-7-cli)  
   - [🔧 Commandes Collaboration](#-commandes-collaboration)
   - [🔧 Commandes Git](#-commandes-git)
@@ -119,9 +119,31 @@ La structure du projet `Symfony_recetteMarmiton` est la suivante :
 │   └── 📜 **messages.fr.yaml**                          _Traductions en français_  
 
 ```
-
 ---
 
+## ⚙️ Étapes de création du projet
+
+### 1. Création du projet Symfony
+
+```bash
+symfony new projet_blanc --webapp
+cd projet_blanc
+```
+
+---
+## ▶️ Lancement de l'application
+
+1. Lancer le serveur Symfony local :
+
+```bash
+symfony serve
+```
+
+2. Accéder à l'application :
+
+* Ouvrez votre navigateur et allez à `http://localhost:8000`.
+--- 
+
 <p align="center">
-  <a href="Procedures A à Z/installation.md">Suivant</a>
+  <a href="Procedures A à Z/commandes-symfony7-CLI">Suivant</a>
 </p>
