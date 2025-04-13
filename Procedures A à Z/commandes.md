@@ -10,6 +10,6 @@
 
 ---
 
-<p align="center">
-  <a href="Procedures A à Z">Suivant</a>
-</p>
+<!-- <p align="center">
+  <a href="./">Suivant</a>
+</p> -->

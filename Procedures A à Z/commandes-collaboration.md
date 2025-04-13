@@ -18,5 +18,5 @@
 ---
 
 <p align="center">
-  <a href="Procedures A à Z/commandes.md">Suivant</a>
+  <a href="./projetSymfony-Github.md">Suivant</a>
 </p>
