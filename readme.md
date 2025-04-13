@@ -11,7 +11,7 @@ Ce projet est un modèle de base pour démarrer une application Symfony 7 sous W
 - [Composer](https://getcomposer.org/)
 - [Symfony CLI](https://symfony.com/download)
 - Node.js + npm
-- Un terminal bash (ex: Git Bash, WSL, ou Terminal VS Code)
+- Un terminal bash (ex: Git Bash, ou Terminal VS Code)
 - Un serveur de base de données (ex: MySQL)
 
 ---
