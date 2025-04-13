@@ -90,27 +90,27 @@ Ce projet est un modèle de base pour démarrer une application Symfony 7 sous W
 │   │   ├── 📜 header.html.twig -------------------------------------> En-tête du site  
 │   │   ├── 📜 footer.html.twig -------------------------------------> Pied de page  
 │   │   └── 📜 recipe-card.html.twig --------------------------------> Affichage d'une recette en carte  
-│   ├── 📂 admin/ ------------------------> Dashboard Admin  
-│   │   └── 📜 index.html.twig -----------> Accueil admin  
-│   ├── 📂 admin_ingredient/ -------------> Gestion des ingrédients (admin)  
-│   │   ├── 📜 create.html.twig ----------> Formulaire ajout ingrédient  
-│   │   ├── 📜 index.html.twig -----------> Liste des ingrédients  
-│   │   └── 📜 _ingredient-card.html.twig -> Carte ingrédient admin  
-│   ├── 📂 comment/ ----------------------> Affichage des commentaires  
-│   │   └── 📜 index.html.twig -----------> Liste des commentaires  
-│   ├── 📂 home/ -------------------------> Page d’accueil du site  
-│   │   └── 📜 index.html.twig -----------> Recettes populaires  
-│   ├── 📂 ingredient/ -------------------> Pages des ingrédients (front utilisateur)  
-│   │   ├── 📜 index.html.twig -----------> Liste des ingrédients  
-│   │   └── 📜 list.html.twig ------------> Détail d’un ingrédient  
-│   ├── 📂 recette/ ----------------------> Pages de gestion des recettes  
-│   │   ├── 📜 create.html.twig ----------> Création d’une recette  
-│   │   ├── 📜 index.html.twig -----------> Liste des recettes  
-│   │   └── 📜 show.html.twig ------------> Détail d’une recette  
-│   └── 📂 registration/ -----------------> Pages liées à l’inscription  
-│       └── 📜 register.html.twig --------> Formulaire d’inscription  
-├── 📂 translations/ ---------------------> Fichiers de traduction (i18n)  
-│   └── 📜 messages.fr.yaml --------------> Traductions en français
+│   ├── 📂 admin/ ---------------------------------------------------> Dashboard Admin  
+│   │   └── 📜 index.html.twig --------------------------------------> Accueil admin  
+│   ├── 📂 admin_ingredient/ ----------------------------------------> Gestion des ingrédients (admin)  
+│   │   ├── 📜 create.html.twig -------------------------------------> Formulaire ajout ingrédient  
+│   │   ├── 📜 index.html.twig --------------------------------------> Liste des ingrédients  
+│   │   └── 📜 _ingredient-card.html.twig ---------------------------> Carte ingrédient admin  
+│   ├── 📂 comment/ -------------------------------------------------> Affichage des commentaires  
+│   │   └── 📜 index.html.twig --------------------------------------> Liste des commentaires  
+│   ├── 📂 home/ ----------------------------------------------------> Page d’accueil du site  
+│   │   └── 📜 index.html.twig --------------------------------------> Recettes populaires  
+│   ├── 📂 ingredient/ ----------------------------------------------> Pages des ingrédients (front utilisateur)  
+│   │   ├── 📜 index.html.twig --------------------------------------> Liste des ingrédients  
+│   │   └── 📜 list.html.twig ---------------------------------------> Détail d’un ingrédient  
+│   ├── 📂 recette/ -------------------------------------------------> Pages de gestion des recettes  
+│   │   ├── 📜 create.html.twig -------------------------------------> Création d’une recette  
+│   │   ├── 📜 index.html.twig --------------------------------------> Liste des recettes  
+│   │   └── 📜 show.html.twig ---------------------------------------> Détail d’une recette  
+│   └── 📂 registration/ --------------------------------------------> Pages liées à l’inscription  
+│       └── 📜 register.html.twig -----------------------------------> Formulaire d’inscription  
+├── 📂 translations/ ------------------------------------------------> Fichiers de traduction (i18n)  
+│   └── 📜 messages.fr.yaml ----------------------------------------> Traductions en français
 
 ---
 
