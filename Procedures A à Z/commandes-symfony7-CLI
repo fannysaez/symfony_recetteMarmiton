@@ -1,20 +1,19 @@
 ## Installation des dépendances via npm
-```bash
+
 | Commande | Description |
 |----------|-------------|
 | `npm install bootstrap @popperjs/core sass --save` | Installe Bootstrap 5 et ses dépendances via npm. |
-```
 
 ## Importer Bootstrap via Importmap
-```bash
+
 | Commande | Description |
 |----------|-------------|
 | `php bin/console importmap:require bootstrap` | Ajoute Bootstrap via Importmap dans le projet Symfony. |
-```
+
 ---
 
 ## Commandes Symfony 7 CLI - Principales
-```bash
+
 | Commande | Description |
 |----------|-------------|
 | `symfony new mon_projet --webapp` | Crée un nouveau projet Symfony 7 avec Twig, Doctrine, Security, etc. |
@@ -27,35 +26,33 @@
 | `symfony console make:user` | Crée une entité User avec rôles et authentification. |
 | `symfony console make:auth` | Génère un système de connexion. |
 | `symfony console doctrine:migrations:migrate` | Applique les migrations à la base. |
-```
 
 ## Commandes Symfony 7 - Création de commandes et filtres personnalisés
 
-```bash
 | Commande | Description |
 |----------|-------------|
 | `symfony console make:command` | Crée une commande Symfony personnalisée (dans `src/Command`). |
-| `symfony console make:filter` | Crée un filtre personnalisé (si l'application utilise des filtres spécifiques dans les contrôleurs ou requêtes). |
-| `symfony console make:twig-extension` | Crée une extension Twig personnalisée pour ajouter des filtres, fonctions ou tests. |
-| `symfony console make:subscriber` | Crée un abonné à un événement Symfony (peut être utilisé pour gérer des filtres ou autres événements). |
-```
+| `symfony console make:filter` | Crée un filtre personnalisé. |
+| `symfony console make:twig-extension` | Crée une extension Twig personnalisée. |
+| `symfony console make:subscriber` | Crée un abonné à un événement Symfony. |
+
 ## Revenir en arrière après avoir modifié une entité
-```bash
+
 | Commande | Description |
 |----------|-------------|
-| `symfony console d:d:c` | Supprime les tables de la base de données (attention, perte de données). |
-| `symfony console d:m:diff` | Génère un fichier de différence de migration pour les modifications de schéma. |
-| `symfony console d:m:m` | Applique les migrations à la base de données. |
-```
+| `symfony console d:d:c` | Supprime les tables de la base de données. |
+| `symfony console d:m:diff` | Génère un fichier de différence de migration. |
+| `symfony console d:m:m` | Applique les migrations à la base. |
+
 ---
 
 ## Outils de débogage principaux
-```bash
+
 | Outil | Description |
 |-------|-------------|
-| `symfony console debug:router` | Affiche la liste des routes disponibles dans l'application. |
-| `symfony console debug:twig` | Affiche les extensions Twig activées dans l'application. |
-```
+| `symfony console debug:router` | Affiche la liste des routes disponibles. |
+| `symfony console debug:twig` | Affiche les extensions Twig activées. |
+
 ---
 
 <p align="center">
