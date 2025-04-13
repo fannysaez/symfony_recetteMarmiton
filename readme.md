@@ -117,7 +117,7 @@ La structure du projet `Symfony_recetteMarmiton` est la suivante :
 ├── 📂 **translations/**                                                   _Fichiers de traduction (i18n)_  
 │   └── 📜 **messages.fr.yaml**                                            _Traductions en français_  
 
-
+```
 
 ---
 
