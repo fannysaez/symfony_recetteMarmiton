@@ -123,5 +123,5 @@ La structure du projet `Symfony_recetteMarmiton` est la suivante :
 ---
 
 <p align="center">
-  <a href="./installation.md">Suivant</a>
+  <a href="Procedures A à Z/installation.md">Suivant</a>
 </p>
