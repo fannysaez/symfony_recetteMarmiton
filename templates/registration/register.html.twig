@@ -10,39 +10,53 @@
             <div class="col-md-6">
                 {{ form_start(registrationForm, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
 
-                    <!-- Champ Username avant l'email -->
+                    <!-- Champ Username -->
                     <div class="mb-3 mt-5">
                         {{ form_label(registrationForm.username, 'Nom d\'utilisateur', {'label_attr': {'class': 'form-label'}}) }}
                         {{ form_widget(registrationForm.username, {'attr': {'class': 'form-control', 'placeholder': 'Votre nom d\'utilisateur'}}) }}
                         <div class="text-danger">{{ form_errors(registrationForm.username) }}</div>
                     </div>
 
-                    <!-- Champ Email après Username -->
+                    <!-- Champ Email -->
                     <div class="mb-3 mt-5">
                         {{ form_label(registrationForm.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
                         {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control', 'placeholder': 'Votre email'}}) }}
                         <div class="text-danger">{{ form_errors(registrationForm.email) }}</div>
                     </div>
 
-                    <!-- Champ Mot de passe avec appui long pour voir le mot de passe -->
+                    <!-- Champ Mot de passe -->
                     <div class="mb-3 mt-5">
                         {{ form_label(registrationForm.plainPassword, 'Mot de passe', {'label_attr': {'class': 'form-label'}}) }}
                         <div class="input-group">
-                            {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control', 'placeholder': 'Votre mot de passe', 'id': 'password', 'type': 'password'}}) }}
+                            {{ form_widget(registrationForm.plainPassword, {
+                                'attr': {
+                                    'class': 'form-control',
+                                    'placeholder': 'Votre mot de passe',
+                                    'id': 'password',
+                                    'type': 'password'
+                                }
+                            }) }}
+                            <!-- Bouton pour afficher/masquer le mot de passe -->
+                            <button type="button" class="btn btn-outline-secondary" id="togglePasswordRegister">
+                                <i class="bi bi-eye" id="eyeIconRegister"></i>
+                            </button>
                         </div>
                         <div class="text-danger">{{ form_errors(registrationForm.plainPassword) }}</div>
                     </div>
 
+                    <!-- Case à cocher CGU -->
                     <div class="form-check mb-3 mt-3">
                         {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
                         {{ form_label(registrationForm.agreeTerms, 'J\'accepte les conditions', {'label_attr': {'class': 'form-check-label'}}) }}
                         <div class="text-danger">{{ form_errors(registrationForm.agreeTerms) }}</div>
                     </div>
 
+                    <!-- Bouton submit -->
                     <button type="submit" class="btn btn-dark w-100 mt-5">S'inscrire</button>
 
                 {{ form_end(registrationForm) }}
             </div>
         </div>
     </div>
+
 {% endblock %}

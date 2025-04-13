@@ -106,4 +106,3 @@ footer small {
 #toggle-password:checked + label i {
     content: '\f070'; /* Code pour l'icône "œil barré" dans Bootstrap Icons */
 }
-
