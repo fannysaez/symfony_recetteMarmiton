@@ -35,8 +35,6 @@ Ce projet est un modèle de base pour démarrer une application Symfony 7 sous W
 
 # Structure de Projet 
 
-# Structure du Projet
-
 La structure du projet `Symfony_recetteMarmiton` est la suivante :
 
 ```plaintext
