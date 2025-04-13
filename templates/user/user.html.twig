@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon profil{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4">Mon profil</h1>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="row align-items-center">
+                <div class="col-md-3 text-center">
+                    <img src="{{ asset('images/user-avatar.png') }}" alt="Avatar" class="img-fluid rounded-circle shadow" width="120">
+                </div>
+                <div class="col-md-9">
+                    <p><strong>Nom d'utilisateur :</strong> {{ user.username }}</p>
+                    <p><strong>Email :</strong> {{ user.email }}</p>
+                    <p><strong>Rôles :</strong> 
+                        {% for role in user.roles %}
+                            <span class="badge bg-secondary">{{ role|replace({'ROLE_': ''})|lower|capitalize }}</span>
+                        {% endfor %}
+                    </p>
+                    <a href="#" class="btn btn-outline-primary mt-3">Modifier mon profil</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -17,7 +17,7 @@
                     <li><a href="{{ path('home_index') }}" class="footer-link text-decoration-none">Accueil</a></li>
                     <li><a href="{{ path('recette_create') }}" class="footer-link text-decoration-none">Nouvelle recette</a></li>
                     {% if app.user %}
-                    <li><a href="{{ path('user_profile') }}" class="footer-link text-decoration-none">Mon profil</a></li>
+                    <li><a href="{{ path('user') }}" class="footer-link text-decoration-none">Mon profil</a></li>
                     <li><a href="{{ path('app_logout') }}" class="footer-link text-decoration-none">Déconnexion</a></li>
                     {% else %}
                     <li><a href="{{ path('app_login') }}" class="footer-link text-decoration-none">Connexion</a></li>

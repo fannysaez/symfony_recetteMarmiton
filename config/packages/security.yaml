@@ -41,6 +41,6 @@ security:
         # Accès à la zone admin uniquement pour les utilisateurs avec le rôle ROLE_ADMIN
         - { path: ^/admin, roles: ROLE_ADMIN }
         # Accès à /profile uniquement pour les utilisateurs connectés (ROLE_USER)
-        - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/user, roles: ROLE_USER }
         # Accès à la page "Ajouter une recette" uniquement pour les utilisateurs connectés
         - { path: ^/recipe/new, roles: ROLE_USER }

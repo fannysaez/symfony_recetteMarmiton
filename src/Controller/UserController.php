@@ -8,8 +8,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 final class UserController extends AbstractController{
-    #[Route('/profil', name: 'user_profile')]
-    public function profile(RecipeRepository $recipeRepository): Response
+    #[Route('/user', name: 'user')]
+    public function user(RecipeRepository $recipeRepository): Response
     {
         $user = $this->getUser();
 
@@ -19,7 +19,7 @@ final class UserController extends AbstractController{
 
         $recipe = $recipeRepository->findBy(['user' => $user]);
 
-        return $this->render('user/profile.html.twig', [
+        return $this->render('user/user.html.twig', [
             'recipes' => $recipe,
             'user' => $user,
         ]);
