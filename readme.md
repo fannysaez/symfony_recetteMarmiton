@@ -18,68 +18,65 @@ Ce projet est un modèle de base pour démarrer une application Symfony 7 sous W
 
 ## 📚 Table des matières
 
-1. [🚀 Présentation du projet](#-présentation-du-projet)  
-2. [⚙️ Prérequis](#️-prérequis)  
-3. [🛠️ Installation](#️-installation)  
-4. [▶️ Lancement de l'application](#️-lancement-de-lapplication)  
-5. [🗃️ Structure du projet](#️-structure-du-projet)  
-6. [🧩 Fonctionnalités principales](#-fonctionnalités-principales)  
-7. [👤 Authentification et rôles](#-authentification-et-rôles)  
-8. [🖼️ Gestion des entités (CRUD)](#️-gestion-des-entités-crud)  
-9. [💬 Commentaires & Likes](#-commentaires--likes)  
-10. [🔎 Filtres et recherche avancée](#-filtres-et-recherche-avancée)  
-11. [🎨 Thème sombre/clair & responsive](#-thème-sombreclair--responsive)  
-12. [🧪 Données de test (fixtures)](#-données-de-test-fixtures)  
-13. [🔐 Sécurité & accès](#-sécurité--accès)  
-14. [📂 Arborescence complète](#-arborescence-complète)  
-15. [📝 Crédits & Auteurs](#-crédits--auteurs)
+[🚀 Présentation du projet](#-présentation-du-projet)  
+[⚙️ Prérequis](#️-prérequis)  
+[🛠️ Installation](#️-installation)  
+[▶️ Lancement de l'application](#️-lancement-de-lapplication)  
+[🔧 Commandes Symfony 7 CLI](#-commandes-symfony-7-cli)  
+[🔒 Sécurité et Authentification](#-sécurité-et-authentification)  
+[🧩 Fonctionnalités principales](#-fonctionnalités-principales)  
+[💬 Commentaires](#-commentaires)  
+[🔎 Recherche et filtres](#-recherche-et-filtres)  
+[🎨 Thème sombre/clair & responsive](#-thème-sombreclair--responsive)  
+[📂 Arborescence complète](#-arborescence-complète)  
+[📝 Crédits & Auteurs](#-crédits--auteurs)
 
 ---
 
 # Structure de Projet 
 
 📁 Symfony_recetteMarmiton  
-├── 📂 assets/ ---------------------------> Fichiers front-end non compilés (JS, CSS, images)  
-│   ├── 📂 controllers/ ------------------> Contrôleurs JS (Stimulus)  
-│   │   └── 📜 hello_controller.js -------> Exemple de contrôleur Stimulus  
-│   ├── 📂 images/ -----------------------> Images brutes utilisées dans le projet  
-│   │   └── 🖼️ logo.png -------------------> Logo du site  
-│   ├── 📂 js/ ---------------------------> Scripts JS personnalisés  
-│   │   └── 📜 theme.js ------------------> Script de gestion du thème sombre/clair  
-│   └── 📂 styles/ -----------------------> Fichiers CSS personnalisés  
-│       └── 🎨 app.css -------------------> CSS principal  
-├── 📂 bin/ ------------------------------> Binaire de la console Symfony  
-│   └── 📜 console -----------------------> Commande CLI Symfony  
-├── 📂 config/ ---------------------------> Fichiers de configuration du projet  
-│   ├── 📂 packages/ ---------------------> Config des bundles (Doctrine, Twig, Security...)  
-│   │   ├── 📜 doctrine.yaml -------------> Configuration de la base de données  
-│   │   ├── 📜 twig.yaml -----------------> Configuration du moteur de templates Twig  
-│   │   └── 📜 security.yaml -------------> Configuration des rôles et de l'accès  
-│   ├── 📂 routes/ -----------------------> Définition des routes supplémentaires  
-│   │   └── 📜 annotations.yaml ----------> Chargement des routes par annotations  
-│   ├── 📜 routes.yaml -------------------> Routes principales globales  
-│   └── 📜 services.yaml -----------------> Déclaration des services personnalisés  
-├── 📂 migrations/ -----------------------> Migrations Doctrine (structure BDD)  
-│   └── 📜 VersionXXXXXX.php -------------> Fichier de migration généré automatiquement  
-├── 📂 public/ ---------------------------> Dossier exposé au navigateur (web root)  
-│   ├── 📂 css/ --------------------------> CSS généré (via Webpack Encore)  
-│   ├── 📂 js/ ---------------------------> JS généré  
-│   └── 📜 index.php ---------------------> Point d'entrée de l'application Symfony  
-├── 📂 src/ ------------------------------> Code source de l'application (backend)  
-│   ├── 📂 Controller/ -------------------> Contrôleurs gérant les routes et la logique  
-│   │   ├── 📜 RecipeController.php ------> Contrôleur des recettes  
-│   │   ├── 📜 CommentController.php -----> Contrôleur des commentaires  
-│   │   └── 📜 SecurityController.php ----> Connexion / déconnexion  
-│   ├── 📂 Entity/ -----------------------> Entités Doctrine = Modèles de données  
-│   │   ├── 📜 Recipe.php ----------------> Entité Recette  
-│   │   ├── 📜 Ingredient.php ------------> Entité Ingrédient  
-│   │   ├── 📜 Comment.php ---------------> Entité Commentaire  
-│   │   ├── 📜 Like.php ------------------> Entité Like  
-│   │   └── 📜 User.php ------------------> Entité Utilisateur  
-│   ├── 📂 Form/ -------------------------> Formulaires Symfony liés aux entités  
-│   │   ├── 📜 RecipeType.php ------------> Formulaire de recette  
-│   │   ├── 📜 CommentType.php -----------> Formulaire de commentaire  
-│   │   ├── 📜 IngredientType.php --------> Formulaire d'ingrédient  
+├── 📂 assets/ -------------------------------------------------------> Fichiers front-end non compilés (JS, CSS, images)  
+│   ├── 📂 controllers/ ----------------------------------------------> Contrôleurs JS (Stimulus)  
+│   │   └── 📜 hello_controller.js -----------------------------------> Exemple de contrôleur Stimulus  
+│   ├── 📂 images/ ---------------------------------------------------> Images brutes utilisées dans le projet  
+│   │   └── 🖼️ logo.png ----------------------------------------------> Logo du site  
+│   ├── 📂 js/ -------------------------------------------------------> Scripts JS personnalisés  
+│   │   └── 📜 theme.js ----------------------------------------------> Script de gestion du thème sombre/clair  
+│   └── 📂 styles/ ---------------------------------------------------> Fichiers CSS personnalisés  
+│       └── 🎨 app.css -----------------------------------------------> CSS principal  
+├── 📂 bin/ ----------------------------------------------------------> Binaire de la console Symfony  
+│   └── 📜 console ---------------------------------------------------> Commande CLI Symfony  
+├── 📂 config/ -------------------------------------------------------> Fichiers de configuration du projet  
+│   ├── 📂 packages/ -------------------------------------------------> Config des bundles (Doctrine, Twig, Security...)  
+│   │   ├── 📜 doctrine.yaml -----------------------------------------> Configuration de la base de données  
+│   │   ├── 📜 twig.yaml ---------------------------------------------> Configuration du moteur de templates Twig  
+│   │   └── 📜 security.yaml -----------------------------------------> Configuration des rôles et de l'accès  
+│   ├── 📂 routes/ ---------------------------------------------------> Définition des routes supplémentaires  
+│   │   └── 📜 annotations.yaml --------------------------------------> Chargement des routes par annotations  
+│   ├── 📜 routes.yaml -----------------------------------------------> Routes principales globales  
+│   └── 📜 services.yaml ---------------------------------------------> Déclaration des services personnalisés  
+├── 📂 migrations/ ---------------------------------------------------> Migrations Doctrine (structure BDD)  
+│   └── 📜 VersionXXXXXX.php -----------------------------------------> Fichier de migration généré automatiquement  
+├── 📂 public/ -------------------------------------------------------> Dossier exposé au navigateur (web root)  
+│   ├── 📂 css/ ------------------------------------------------------> CSS généré (via Webpack Encore)  
+│   ├── 📂 js/ -------------------------------------------------------> JS généré  
+│   └── 📜 index.php -------------------------------------------------> Point d'entrée de l'application Symfony  
+├── 📂 src/ ----------------------------------------------------------> Code source de l'application (backend)  
+│   ├── 📂 Controller/ -----------------------------------------------> Contrôleurs gérant les routes et la logique  
+│   │   ├── 📜 RecipeController.php ----------------------------------> Contrôleur des recettes  
+│   │   ├── 📜 CommentController.php ---------------------------------> Contrôleur des commentaires  
+│   │   └── 📜 SecurityController.php --------------------------------> Connexion / déconnexion  
+│   ├── 📂 Entity/ ---------------------------------------------------> Entités Doctrine = Modèles de données  
+│   │   ├── 📜 Recipe.php --------------------------------------------> Entité Recette  
+│   │   ├── 📜 Ingredient.php ----------------------------------------> Entité Ingrédient  
+│   │   ├── 📜 Comment.php -------------------------------------------> Entité Commentaire  
+│   │   ├── 📜 Like.php ----------------------------------------------> Entité Like  
+│   │   └── 📜 User.php ----------------------------------------------> Entité Utilisateur  
+│   ├── 📂 Form/ -----------------------------------------------------> Formulaires Symfony liés aux entités  
+│   │   ├── 📜 RecipeType.php ----------------------------------------> Formulaire de recette  
+│   │   ├── 📜 CommentType.php ---------------------------------------> Formulaire de commentaire  
+│   │   ├── 📜 IngredientType.php ------------------------------------> Formulaire d'ingrédient  
 │   │   └── 📜 RegistrationFormType.php --> Formulaire d’inscription utilisateur  
 │   ├── 📂 Repository/ -------------------> Requêtes personnalisées (Doctrine)  
 │   │   ├── 📜 RecipeRepository.php ------> Requêtes liées aux recettes  
