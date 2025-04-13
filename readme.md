@@ -145,5 +145,5 @@ symfony serve
 --- 
 
 <p align="center">
-  <a href="Procedures A à Z/commandes-symfony7-CLI">Suivant</a>
+  <a href="Procedures A à Z/commandes-symfony7-CLI.md">Suivant</a>
 </p>
