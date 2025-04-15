@@ -175,7 +175,75 @@ $builder->add('imageFile', VichImageType::class, [
 
 ---
 
+5. 🗑 Sécuriser la modification/suppression d’une recette
 
+Dans RecipeController :
+
+```php
+if ($security->getUser() !== $recipe->getUser() && !$security->isGranted('ROLE_ADMIN')) {
+    throw $this->createAccessDeniedException();
+}
+```
+
+---
+
+6. 📄 Affichage d’une recette en détail
+
+Dans templates/recipe/show.html.twig :
+
+```twig
+<h2>{{ recipe.title }}</h2>
+<img src="{{ asset('uploads/recipes/' ~ recipe.image) }}" alt="{{ recipe.title }}">
+<p>Durée : {{ recipe.duration }} min</p>
+<p>Pour {{ recipe.nbPeople }} personnes</p>
+<p>Par : {{ recipe.user.email }}</p>
+<p>Créée le {{ recipe.createdAt|date('d/m/Y') }}</p>
+<p>Difficulté : {{ recipe.difficulty.level }}</p>
+<p>Catégorie : {{ recipe.category.name }}</p>
+
+<h3>Ingrédients :</h3>
+<ul>
+    {% for ingredient in recipe.ingredients %}
+        <li>{{ ingredient.name }} ({{ ingredient.unit }})</li>
+    {% endfor %}
+</ul>
+
+<p>{{ recipe.content|nl2br }}</p>
+```
+
+---
+
+7. ✅ Exemple d'affichage dans une carte Bootstrap (page liste)
+
+```twig
+
+<div class="card mb-4">
+    <img src="{{ asset('uploads/recipes/' ~ recipe.image) }}" class="card-img-top" alt="{{ recipe.title }}">
+    <div class="card-body">
+        <h5 class="card-title">{{ recipe.title }}</h5>
+        <p class="card-text">
+            {{ recipe.duration }} min · {{ recipe.nbPeople }} pers<br>
+            Catégorie : {{ recipe.category.name }}
+        </p>
+        <a href="{{ path('recipe_show', {id: recipe.id}) }}" class="btn btn-primary">Voir la recette</a>
+    </div>
+</div>
+
+```
+
+---
+
+8. 📂 Organisation des pages
+
+    /recette : liste des recettes
+
+    /recette/new : formulaire de création
+
+    /recette/{id} : page de détail
+
+    /recette/{id}/edit : édition (si auteur/admin)
+
+    /recette/{id} (DELETE) : suppression (si auteur/admin)
 
 ---
 
