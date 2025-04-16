@@ -125,8 +125,19 @@ On trie les commentaires par date descendante avec sort() (Symfony 6.3+ ou Twig 
 
 Le formulaire n’est visible que si l’utilisateur est `connecté (app.user)`. La sécurité dans le contrôleur est assurée avec :
 
+```php
+
+$comment->setUser($this->getUser());
+
 ```
 
+7. 🧹 Suppression de commentaire (optionnel)
+
+Tu peux générer un `CommentController` via :
+
+```bash
+
+```
 
 
 
