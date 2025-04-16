@@ -1,15 +1,4 @@
 # Commandes Symfony 7 - CLI & Dépendances
-
-## Sommaire
-
-- Installation des dépendances via npm
-- Importer Bootstrap via Importmap
-- Commandes Symfony 7 CLI - Principales
-- Commandes Symfony 7 - Création de commandes et filtres personnalisés
-- Revenir en arrière après avoir modifié une entité
-- Outils de débogage principaux
-- Mes Projets
-
 ---
 
 ## Installation des dépendances via npm
