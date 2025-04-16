@@ -136,9 +136,18 @@ $comment->setUser($this->getUser());
 Tu peux générer un `CommentController` via :
 
 ```bash
-
+symfony console make:crud Comment
 ```
 
+Et restreindre la suppression dans le contrôleur :
+
+```php
+
+if ($this->getUser() !== $comment->getUser() && !$this->isGranted('ROLE_ADMIN')) {
+    throw $this->createAccessDeniedException();
+}
+
+```
 
 
 
