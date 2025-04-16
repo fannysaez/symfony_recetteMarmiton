@@ -149,10 +149,6 @@ if ($this->getUser() !== $comment->getUser() && !$this->isGranted('ROLE_ADMIN'))
 
 ```
 
-
-
-
-
 ---
 
 <p align="center">
