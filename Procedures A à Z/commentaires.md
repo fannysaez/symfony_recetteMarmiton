@@ -152,5 +152,5 @@ if ($this->getUser() !== $comment->getUser() && !$this->isGranted('ROLE_ADMIN'))
 ---
 
 <p align="center">
-  <a href="./theme-sombre-clair.md">Suivant</a>
+  <a href="./filtrePersonnalise.md">Suivant</a>
 </p>

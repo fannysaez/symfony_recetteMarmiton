@@ -29,8 +29,8 @@ Ce projet est un modèle de base pour démarrer une application Symfony 7 sous W
       - [🔒 Sécurité et Authentification](./Procedures%20A%20à%20Z/securite-et-authentification.md)  
       - [🧩 Fonctionnalités principales](./Procedures%20A%20à%20Z/fonctionnalites-principales.md)  
       - [💬 Commentaires](./Procedures%20A%20à%20Z/commentaires.md)  
-      - [🔎 filtres](#filtres)  
-      - [🎨 Thème sombre/clair & responsive](#-thème-sombreclair--responsive)  
+      - [🔎 Filtre personnalisé](./Procedures%20A%20à%20Z/filtrePersonnalise.md)  
+      - [🎨 Thème sombre/clair & responsive](./Procedures%20A%20à%20Z/theme-sombre-clair.md)  
 
 ---
 
