@@ -107,6 +107,89 @@ Ouvre :
 code src/Repository/RecipeRepository.php
 ```
 
+Ajoute :
+
+```php
+use App\DTO\RecipeFilter;
+
+public function findByFilters(RecipeFilter $filter): array
+{
+    $qb = $this->createQueryBuilder('r')
+        ->leftJoin('r.difficulty', 'd')
+        ->leftJoin('r.ingredients', 'i')
+        ->addSelect('d', 'i');
+
+    if ($filter->maxDuration) {
+        $qb->andWhere('r.duration <= :duration')
+            ->setParameter('duration', $filter->maxDuration);
+    }
+
+    if ($filter->difficulty) {
+        $qb->andWhere('r.difficulty = :difficulty')
+            ->setParameter('difficulty', $filter->difficulty);
+    }
+
+    if (!empty($filter->ingredients)) {
+        $qb->andWhere('i IN (:ingredients)')
+            ->setParameter('ingredients', $filter->ingredients);
+    }
+
+    return $qb->getQuery()->getResult();
+}
+```
+
+---
+
+### 🎨 4. Modifier le template Twig
+
+```bash
+code templates/recipe/index.html.twig
+```
+
+Ajoute au début :
+
+```twig
+<h2>Filtres</h2>
+{{ form_start(form) }}
+<div class="row mb-3">
+    <div class="col-md-4">
+        {{ form_row(form.maxDuration) }}
+    </div>
+    <div class="col-md-4">
+        {{ form_row(form.difficulty) }}
+    </div>
+    <div class="col-md-4">
+        {{ form_row(form.ingredients) }}
+    </div>
+</div>
+<button class="btn btn-primary">Filtrer</button>
+{{ form_end(form) }}
+<hr>
+
+```
+
+Et garde la suite pour afficher les recettes.
+
+---
+
+✅ Commandes utiles récapitulatives
+
+```bash
+# # Créer DTO
+# mkdir -p src/DTO && touch src/DTO/RecipeFilter.php
+
+# Générer le formulaire
+php bin/console make:form RecipeFilterType
+
+# Ouvrir les fichiers nécessaires
+code src/DTO/RecipeFilter.php
+code src/Form/RecipeFilterType.php
+code src/Controller/RecipeController.php
+code src/Repository/RecipeRepository.php
+code templates/recipe/index.html.twig
+
+```
+
 ---
 
 <p align="center">
