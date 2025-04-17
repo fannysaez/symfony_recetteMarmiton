@@ -175,8 +175,6 @@ Et garde la suite pour afficher les recettes.
 ✅ Commandes utiles récapitulatives
 
 ```bash
-# # Créer DTO
-# mkdir -p src/DTO && touch src/DTO/RecipeFilter.php
 
 # Générer le formulaire
 php bin/console make:form RecipeFilterType
