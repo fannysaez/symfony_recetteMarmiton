@@ -213,7 +213,7 @@ body {
 Puis n'oublie pas de l'importer dans `app.js` :
 
 ```js
-import './styles/app.scss';
+import './styles/app.css';
 ```
 
 ---
