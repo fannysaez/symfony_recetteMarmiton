@@ -58,6 +58,82 @@ Dans ton navbar.html.twig :
 </script>
 
 ```
+
+* Le data-bs-theme est lu automatiquement par Bootstrap 5.3+
+* On utilise localStorage pour mémoriser le choix du thème
+* Pas besoin de surcharge CSS, tout est natif Bootstrap
+
+---
+
+3. ✅ Responsive Design
+
+Bootstrap 5 est responsive par défaut grâce à son grid system. Assure-toi :
+
+- d’utiliser des classes .container, .row, .col-md-6, etc.
+- de rendre les cartes recettes responsives :
+
+```twig
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+    {% for recipe in recipes %}
+        <div class="col">
+            <div class="card h-100">
+                <img src="{{ asset(recipe.imagePath) }}" class="card-img-top" alt="{{ recipe.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ recipe.title }}</h5>
+                    <p class="card-text">Durée : {{ recipe.duration }} min</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Par {{ recipe.author.email }}</small>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+```
+
+---
+
+🎨 Étape 1 : Ajouter le toggle HTML dans le layout
+
+Ouvre ton fichier de layout principal (par exemple : templates/base.html.twig) :
+
+```twig
+<!-- templates/base.html.twig -->
+
+<!DOCTYPE html>
+<html lang="fr" data-bs-theme="light"> {# Valeur par défaut #}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Recettes{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <!-- Logo / marque -->
+            <a class="navbar-brand" href="#">Marmiton</a>
+
+            <!-- Toggle dark mode -->
+            <div class="form-check form-switch ms-auto">
+                <input class="form-check-input" type="checkbox" id="themeToggle">
+                <label class="form-check-label" for="themeToggle">🌙</label>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-4">
+        {% block body %}{% endblock %}
+    </div>
+
+    {% block javascripts %}
+        <script src="{{ asset('build/app.js') }}"></script>
+    {% endblock %}
+</body>
+</html>
+
+```
 ---
 
 <p align="center">
