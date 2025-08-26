@@ -1,0 +1,4 @@
+/* Ajout d'une classe utilitaire pour cacher/afficher dynamiquement */
+.hidden {
+    display: none !important;
+}

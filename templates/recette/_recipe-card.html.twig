@@ -1,0 +1,11 @@
+{# Carte recette avec bouton d'affichage/masquage du contenu #}
+<div class="card mb-3">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <span>{{ recipe.title }}</span>
+        <button class="btn btn-outline-secondary btn-sm toggle-recipe-content" type="button">Afficher/Masquer</button>
+    </div>
+    <div class="card-body recipe-content hidden">
+        <p>{{ recipe.description|default('Aucune description') }}</p>
+        {# Ajoute ici d'autres infos si besoin #}
+    </div>
+</div>
