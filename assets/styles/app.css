@@ -1,4 +1,24 @@
-body, footer, .navbar {
+body.dark .navbar .nav-link.dropdown-toggle .user-icon {
+    color: var(--user-icon-color) !important;
+}
+
+/* Couleur personnalisée pour l'icône utilisateur dans le dropdown */
+.navbar .nav-link.dropdown-toggle .user-icon {
+    color: var(--user-icon-color) !important;
+    transition: color 0.3s;
+}
+
+/* Couleur personnalisée uniquement pour le nom d'utilisateur dans le dropdown */
+.navbar .nav-link.dropdown-toggle .username {
+    color: var(--user-dropdown-color) !important;
+    font-weight: 600;
+}
+
+@import url('./variables.css');
+
+body,
+footer,
+.navbar {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -9,8 +29,10 @@ html {
 body {
     display: flex;
     flex-direction: column;
-    min-height: 100vh; 
-    overflow-x: hidden; 
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-color: var(--primary-bg);
+    color: var(--primary-color);
 }
 
 .card-body p {
@@ -19,13 +41,13 @@ body {
 
 .container {
     flex-grow: 1;
-    padding: 20px; 
+    padding: 20px;
 }
 
 footer {
     width: 100%;
-    background-color: #343a40; 
-    color: white;
+    background-color: var(--secondary-bg);
+    color: var(--secondary-color);
     margin-top: 50px;
 }
 
@@ -34,38 +56,40 @@ footer small {
 }
 
 /* Désactiver l'effet hover pour les boutons "Connexion" et "Inscription" */
+
 .navbar .nav-link.btn.btn-outline-primary:hover,
 .navbar .nav-link.btn.btn-outline-success:hover {
-    background-color: none; 
-    border-color: inherit; 
-    color: white; 
+    background-color: none;
+    border-color: inherit;
+    color: var(--navbar-color);
 }
 
+
 .navbar .nav-link.btn.btn-outline-primary {
-    background-color: #127089;
-    color: white;
+    background-color: var(--navbar-bg);
+    color: var(--navbar-color);
 }
 
 .navbar .nav-link.btn.btn-outline-success {
-    background-color: black;
-    color: white;
+    background-color: var(--success-bg);
+    color: var(--success-color);
 }
 
 .jumbotron {
     margin-top: 0;
-    padding-top: 2rem; 
-    padding-bottom: 2rem; 
+    padding-top: 2rem;
+    padding-bottom: 2rem;
 }
 
 /* Applique une mise en page en colonne aux cases à cocher */
 .ingredients-checkboxes {
     display: flex;
-    flex-wrap: wrap; 
-    gap: 10px; 
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 /* Limite le nombre d'éléments par colonne à 5 */
-.ingredients-checkboxes > div {
+.ingredients-checkboxes>div {
     display: flex;
     flex-direction: row;
     max-width: 200px;
@@ -73,15 +97,17 @@ footer small {
 }
 
 /* S'assure qu'il y a exactement 5 cases par colonne */
-.ingredients-checkboxes > div > label:nth-child(n+6) {
-    display: none; 
+.ingredients-checkboxes>div>label:nth-child(n+6) {
+    display: none;
 }
+
 
 .card-body .d-flex span {
     white-space: nowrap;
 }
+
 .card-img-container {
-    height: 200px; 
+    height: 200px;
     overflow: hidden;
 }
 
@@ -91,18 +117,26 @@ footer small {
     /* object-fit: cover;  */
 }
 
+.card-body {
+    background-color: var(--card-bg);
+    color: var(--card-color);
+}
+
 /* Masquer le mot de passe par défaut */
 #password[type="password"] {
     font-family: 'Arial', sans-serif;
 }
 
 /* Lorsque le checkbox est coché, afficher le mot de passe */
-#toggle-password:checked + label + #password {
-    -webkit-text-security: none; /* Pour Chrome, Safari */
-    -text-security: none; /* Pour Firefox */
+#toggle-password:checked+label+#password {
+    -webkit-text-security: none;
+    /* Pour Chrome, Safari */
+    -text-security: none;
+    /* Pour Firefox */
 }
 
 /* Changer l'icône lorsque le mot de passe est visible */
-#toggle-password:checked + label i {
-    content: '\f070'; /* Code pour l'icône "œil barré" dans Bootstrap Icons */
+#toggle-password:checked+label i {
+    content: '\f070';
+    /* Code pour l'icône "œil barré" dans Bootstrap Icons */
 }

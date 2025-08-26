@@ -1,0 +1,35 @@
+/* Variables CSS pour le thème clair */
+:root {
+    --primary-bg: #fff;
+    --primary-color: #212529;
+    --secondary-bg: #343a40;
+    --secondary-color: #fff;
+    --navbar-bg: #127089;
+    --navbar-color: #fff;
+    --success-bg: #000;
+    --success-color: #fff;
+    --card-bg: #fff;
+    --card-color: #212529;
+    --user-dropdown-color: #6c2eb7;
+    /* violet par défaut, à surcharger en dark */
+    --user-icon-color: #6c2eb7;
+    /* même couleur que le texte par défaut */
+}
+
+/* Variables CSS pour le mode sombre */
+body.dark {
+    --primary-bg: #181a1b;
+    --primary-color: #e0e0e0;
+    --secondary-bg: #23272b;
+    --secondary-color: #fff;
+    --navbar-bg: #23272b;
+    --navbar-color: #fff;
+    --success-bg: #127089;
+    --success-color: #fff;
+    --card-bg: #23272b;
+    --card-color: #e0e0e0;
+    --user-dropdown-color: #ffd600;
+    /* jaune vif en dark mode */
+    --user-icon-color: #ffd600;
+    /* jaune vif pour l'icône aussi */
+}
