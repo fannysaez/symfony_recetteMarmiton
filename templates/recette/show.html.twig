@@ -1,111 +1,134 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Détails de la recette{% endblock %}
-
 {% block body %}
 <div class="container mt-5 py-5 mb-3">
 
     {% if recipe is not defined or recipe is null %}
-        <div class="container-fluid">
-            <div class="card">
-                <h1 class="card-header text-center py-2 mb-4">Recette non trouvée</h1>
-                <div class="card-body text-center">
-                    <p class="lh-lg card-description">Désolé, la recette que vous recherchez n'existe pas ou a été supprimée.</p>
-                    <div class="text-center">
-                        <a href="{{ path('home_index') }}" class="border btn btn-light">Retour à la page d'accueil</a>
-                    </div>
-                </div>
+    ...existing code...
+    {% else %}
+    <div class="card mb-3 py-0">
+        <h1 class="card-header text-center">{{ recipe.title }}</h1>
+
+        {# Bouton Like #}
+        {% if app.user and recipe.user.id != app.user.id %}
+        <div class="text-center mb-3">
+            <button id="like-btn" class="btn btn-outline-danger"
+                data-liked="{{ recipe.likes|filter(l => l.user and l.user.id == app.user.id)|length > 0 ? '1' : '0' }}">
+                <span id="like-icon">❤</span>
+                <span id="like-count">{{ recipe.likes|length }}</span> J'aime
+            </button>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const btn = document.getElementById('like-btn');
+                if (!btn) return;
+                btn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    fetch("{{ path('recette_like', {'id': recipe.id}) }}", {
+                        method: 'POST',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Content-Type': 'application/json',
+                        },
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.likeCount !== undefined) {
+                                document.getElementById('like-count').textContent = data.likeCount;
+                                btn.setAttribute('data-liked', data.liked ? '1' : '0');
+                                btn.classList.toggle('btn-danger', data.liked);
+                                btn.classList.toggle('btn-outline-danger', !data.liked);
+                            }
+                            if (data.error) {
+                                alert(data.error);
+                            }
+                        });
+                });
+            });
+        </script>
+        {% endif %}
+        <div class="row g-0 py-4 mb-3">
+            <div class="col-md-4 center-image">
+                {% if recipe.image %}
+                <img src="{{ recipe.image }}" alt="{{ recipe.title }}"
+                    class="card-img-top rounded img-fluid mx-auto d-block py-5" style="max-width: 300px;" />
+                {% else %}
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAjTyV82ZnWf2TvhqzqS1Rwfcz9T0laA37aI5ess-hHQF9ylLu087Bd8y_7LNufOp_d_Qj60ohW-lJAsL0muKAzTguBwNDUWcOpTR35jmX"
+                    alt="Image non disponible" class="card-img-top rounded img-fluid mx-auto d-block py-5"
+                    style="max-width: 300px;" />
+                {% endif %}
             </div>
-            <div class="rounded p-5">
-                <img class="img-fluid mx-auto d-block" src="{{ asset('assets/img/recipes/not-found.webp') }}" alt="recette-non-trouvee" style="max-width: 500px;">
+            <div class="col-md-8 py-1">
+                <div class="card-body">
+                    <p class="card-text text-justify mb-4">{{ recipe.description }}</p>
+                </div>
             </div>
         </div>
-    {% else %}
-        <div class="card mb-3 py-0">
-            <h1 class="card-header text-center">{{ recipe.title }}</h1>
 
-            <div class="row g-0 py-4 mb-3">
-                <div class="col-md-4 center-image">
-                    {% if recipe.image %}
-                        <img src="{{ recipe.image }}" alt="{{ recipe.title }}" class="card-img-top rounded img-fluid mx-auto d-block py-5" style="max-width: 300px;" />
-                    {% else %}
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAjTyV82ZnWf2TvhqzqS1Rwfcz9T0laA37aI5ess-hHQF9ylLu087Bd8y_7LNufOp_d_Qj60ohW-lJAsL0muKAzTguBwNDUWcOpTR35jmX" alt="Image non disponible" class="card-img-top rounded img-fluid mx-auto d-block py-5" style="max-width: 300px;" />
-                    {% endif %}
+        <div class="card mb-3 p-4 shadow-sm" style="border: 1px solid #ddd;">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-clock me-2"></i>
+                    <p class="mb-0">Durée : {{ recipe.duration }} min</p>
                 </div>
-                <div class="col-md-8 py-1">
-                    <div class="card-body">
-                        <p class="card-text text-justify mb-4">{{ recipe.description }}</p>
-                    </div>
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-users me-2"></i>
+                    <p class="mb-0">Nombre de personnes : {{ recipe.peopleCount }}</p>
+                </div>
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-star me-2" style="color: #f39c12;"></i>
+                    <p class="mb-0" style="color: #f39c12;">Difficulté : {{ recipe.difficulty }}</p>
                 </div>
             </div>
+        </div>
 
-            <div class="card mb-3 p-4 shadow-sm" style="border: 1px solid #ddd;">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="d-flex align-items-center">
-                        <i class="fas fa-clock me-2"></i>
-                        <p class="mb-0">Durée : {{ recipe.duration }} min</p>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <i class="fas fa-users me-2"></i>
-                        <p class="mb-0">Nombre de personnes : {{ recipe.peopleCount }}</p>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <i class="fas fa-star me-2" style="color: #f39c12;"></i>
-                        <p class="mb-0" style="color: #f39c12;">Difficulté : {{ recipe.difficulty }}</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card-footer text-center">
-                <a href="{{ path('home_index') }}" class="btn btn-light">Retour à la page d'accueil</a>
-            </div>
+        <div class="card-footer text-center">
+            <a href="{{ path('home_index') }}" class="btn btn-light">Retour à la page d'accueil</a>
         </div>
 
         {# Formulaire pour ajouter un commentaire #}
         {% if app.user %}
-            <div class="card p-4 shadow-sm mb-4 {{ app.session.get('theme') == 'dark' ? 'bg-dark text-light' : '' }}">
-                <h5 class="card-title mb-3">Ajouter un commentaire</h5>
-                {{ form_start(commentForm) }}
-                    <div class="mb-3">
-                        {{ form_label(commentForm.content, 'Votre commentaire') }}
-                        {{ form_widget(commentForm.content, {
-                            'attr': {
-                                'class': 'form-control',
-                                'placeholder': 'Exprimez-vous ici...'
-                            }
-                        }) }}
-                        {{ form_errors(commentForm.content) }}
-                    </div>
-                    
-                    <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-dark">Publier</button>
-                    </div>
-                    
-                {{ form_end(commentForm) }}
+        <div class="card p-4 shadow-sm mb-4 {{ app.session.get('theme') == 'dark' ? 'bg-dark text-light' : '' }}">
+            <h5 class="card-title mb-3">Ajouter un commentaire</h5>
+            {{ form_start(commentForm) }}
+            <div class="mb-3">
+                {{ form_label(commentForm.content, 'Votre commentaire') }}
+                {{ form_widget(commentForm.content, {
+                'attr': {
+                'class': 'form-control',
+                'placeholder': 'Exprimez-vous ici...'
+                }
+                }) }}
+                {{ form_errors(commentForm.content) }}
             </div>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-dark">Publier</button>
+            </div>
+            {{ form_end(commentForm) }}
+        </div>
         {% else %}
-            <div class="alert alert-info text-center my-4">
-                <a href="{{ path('app_login') }}">Connectez-vous</a> pour laisser un commentaire.
-            </div>
+        <div class="alert alert-info text-center my-4">
+            <a href="{{ path('app_login') }}">Connectez-vous</a> pour laisser un commentaire.
+        </div>
         {% endif %}
 
         {# Liste des commentaires #}
         <div class="card mb-3 p-4 shadow-sm" style="max-width: 100%;">
             <h5 class="card-title">Commentaires</h5>
             {% for comment in comments %}
-                <div class="card mb-3 shadow-sm w-100">
-                    <div class="card-header d-flex justify-content-between">
-                        <span><strong>{{ comment.user.username }}</strong></span>
-                        <span class="text-muted">{{ comment.createdAt|date("d/m/Y") }}</span>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">{{ comment.content }}</p>
-                    </div>
+            <div class="card mb-3 shadow-sm w-100">
+                <div class="card-header d-flex justify-content-between">
+                    <span><strong>{{ comment.user.username }}</strong></span>
+                    <span class="text-muted">{{ comment.createdAt|date("d/m/Y") }}</span>
                 </div>
+                <div class="card-body">
+                    <p class="card-text">{{ comment.content }}</p>
+                </div>
+            </div>
             {% else %}
-                <p class="text-muted">Aucun commentaire pour le moment.</p>
+            <p class="text-muted">Aucun commentaire pour le moment.</p>
             {% endfor %}
         </div>
-    {% endif %}
-</div>
+    </div> {# fin .card #}
+    {% endif %} {# fin if/else recette #}
+</div> {# fin .container #}
 {% endblock %}

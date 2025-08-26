@@ -2,33 +2,69 @@
 
 namespace App\Controller;
 
+use App\Entity\Like;
 use App\Entity\Recipe;
 use App\Entity\Comment;
 use App\Form\RecipeType;
 use App\Form\CommentType;
+use App\Repository\LikeRepository;
+use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Repository\CommentRepository;
 
 #[Route('/recette')]
 final class RecetteController extends AbstractController
 {
+    #[Route('/{id}/like', name: 'recette_like', methods: ['POST'])]
+    public function like(int $id, EntityManagerInterface $entityManager, LikeRepository $likeRepository): JsonResponse
+    {
+        $user = $this->getUser();
+        if (!$user) {
+            return new JsonResponse(['error' => 'Non autorisé'], 401);
+        }
+        $recipe = $entityManager->getRepository(Recipe::class)->find($id);
+        if (!$recipe) {
+            return new JsonResponse(['error' => 'Recette non trouvée'], 404);
+        }
+        $recipeUser = $recipe->getUser();
+        if ($recipeUser && method_exists($user, 'getId') && method_exists($recipeUser, 'getId') && $recipeUser->getId() === $user->getId()) {
+            return new JsonResponse(['error' => 'Impossible de liker sa propre recette'], 403);
+        }
+        $existingLike = $likeRepository->findOneBy(['recipe' => $recipe, 'user' => $user]);
+        if ($existingLike) {
+            $entityManager->remove($existingLike);
+            $entityManager->flush();
+            $liked = false;
+        } else {
+            $like = new Like();
+            $like->setRecipe($recipe);
+            $like->setUser($user);
+            $like->setCreatedAt(new \DateTimeImmutable());
+            $entityManager->persist($like);
+            $entityManager->flush();
+            $liked = true;
+        }
+        $likeCount = $likeRepository->count(['recipe' => $recipe]);
+        return new JsonResponse([
+            'liked' => $liked,
+            'likeCount' => $likeCount
+        ]);
+    }
+
     #[Route('/', name: 'recette_index')]
     public function index(EntityManagerInterface $entityManager, CommentRepository $commentRepository): Response
     {
-        // Récupérer toutes les recettes
         $recipes = $entityManager->getRepository(Recipe::class)->findAll();
 
-        // Ajouter le nombre de commentaires à chaque recette
         foreach ($recipes as $recipe) {
             $recipe->commentCount = $commentRepository->count(['recipe' => $recipe]);
         }
 
-        // Retourner la vue avec les recettes récupérées
         return $this->render('recette/index.html.twig', [
             'recipes' => $recipes,
         ]);
@@ -42,38 +78,27 @@ final class RecetteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Générer le slug à partir du titre
             $title = $recipe->getTitle();
             $slug = $slugger->slug($title)->lower();
             $recipe->setSlug($slug);
 
-            // Ajouter la date de création
             $recipe->setCreatedAt(new \DateTimeImmutable());
-
-            // Ajouter la date de mise à jour (car 'updateAt' ne doit pas être null)
             $recipe->setUpdateAt(new \DateTimeImmutable());
-
-            // Associer l'utilisateur connecté à la recette
             $recipe->setUser($this->getUser());
 
-            // Mettre à jour l'URL de l'image (vérifier si l'URL a changé)
             $imageUrl = $form->get('image')->getData();
             if ($imageUrl) {
-                $recipe->setImage($imageUrl); // Mettre à jour l'image
+                $recipe->setImage($imageUrl);
             }
 
-            // Sauvegarder la recette en base de données
             $entityManager->persist($recipe);
             $entityManager->flush();
 
-            // Ajouter un message flash de succès
             $this->addFlash('success', 'Votre recette a bien été créée !');
 
-            // Rediriger vers la page de détail de la recette après la création
             return $this->redirectToRoute('recette_show', ['id' => $recipe->getId()]);
         }
 
-        // Renvoyer le formulaire dans la vue
         return $this->render('recette/create.html.twig', [
             'form' => $form->createView(),
         ]);
@@ -83,35 +108,33 @@ final class RecetteController extends AbstractController
     public function show(int $id, EntityManagerInterface $entityManager, Request $request): Response
     {
         $recipe = $entityManager->getRepository(Recipe::class)->find($id);
-    
+
         if (!$recipe) {
             throw $this->createNotFoundException('Recette non trouvée');
         }
-    
-        // Récupération des commentaires associés à la recette
+
         $comments = $recipe->getComments();
-    
-        // Création du formulaire de commentaire
+
         $comment = new Comment();
         $comment->setRecipe($recipe);
         $comment->setCreatedAt(new \DateTimeImmutable());
-    
+
         if ($this->getUser()) {
             $comment->setUser($this->getUser());
         }
-    
+
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
-    
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($comment);
             $entityManager->flush();
-    
+
             $this->addFlash('success', 'Votre commentaire a bien été ajouté.');
-    
+
             return $this->redirectToRoute('recette_show', ['id' => $id]);
         }
-    
+
         return $this->render('recette/show.html.twig', [
             'recipe' => $recipe,
             'comments' => $comments,

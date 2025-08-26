@@ -18,8 +18,21 @@ class Like
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $createdAt = null;
 
-    #[ORM\ManyToOne(inversedBy: 'Recipe')]
+    #[ORM\ManyToOne(inversedBy: 'likes')]
     private ?Recipe $recipe = null;
+
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    private ?User $user = null;
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+        return $this;
+    }
 
     public function getId(): ?int
     {
