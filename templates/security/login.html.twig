@@ -8,26 +8,29 @@
         <div class="col-md-6">
             <form method="post" class="mt-5">
                 {% if error %}
-                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                 {% endif %}
 
                 {% if app.user %}
-                    <div class="mb-3 connected-info">
-                        Vous êtes connecté en tant que  {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Se déconnecter</a>
-                    </div>
+                <div class="mb-3 connected-info">
+                    Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Se
+                        déconnecter</a>
+                </div>
                 {% endif %}
 
                 <h1 class="h3 mb-3 font-weight-normal text-center">Connexion</h1>
 
                 <div class="form-group mb-4">
                     <label for="inputEmail" class="form-label">Adresse e-mail :</label>
-                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control"
+                        autocomplete="email" required autofocus>
                 </div>
 
                 <div class="form-group mb-3">
                     <label for="inputPassword" class="form-label">Mot de passe :</label>
                     <div class="input-group">
-                        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                        <input type="password" name="password" id="inputPassword" class="form-control"
+                            autocomplete="current-password" required>
                         <button type="button" class="btn btn-outline-secondary" id="togglePasswordLogin">
                             <i class="bi bi-eye" id="eyeIconLogin"></i>
                         </button>
@@ -48,4 +51,8 @@
         </div>
     </div>
 </div>
+{% block javascripts %}
+{{ parent() }}
+<script src="/assets/js/toggle-password.js"></script>
+{% endblock %}
 {% endblock %}
