@@ -81,42 +81,42 @@ window.addEventListener('DOMContentLoaded', function() {
 
     <div class="container-fluid d-flex ps-0" style="min-height: 100vh;">
         <!-- Menu latéral -->
-        <nav class="flex-shrink-0 bg-dark text-white ps-4" style="width: 250px; min-height: 100vh;">
+    <nav class="flex-shrink-0 admin-sidebar ps-4" style="width: 250px; min-height: 100vh;">
             <h2 class="text-center mb-4 p-4">
                 <i class="bi bi-person-lock text-white"></i> Admin
             </h2>
-            <a href="{{ path('home_index') }}" class="text-white text-decoration-none p-2 d-block nav-link">
-                <i class="bi bi-house-door text-white"></i> Accueil
+            <a href="{{ path('home_index') }}" class="admin-link text-decoration-none p-2 d-block nav-link">
+                <i class="bi bi-house-door admin-link-icon"></i> Accueil
             </a>
-            <a href="{{ path('ingredient_admin') }}" class="text-white text-decoration-none p-2 d-block nav-link">
-                <i class="bi bi-list-ul text-white"></i> Gérer les ingrédients
+            <a href="{{ path('ingredient_admin') }}" class="admin-link text-decoration-none p-2 d-block nav-link">
+                <i class="bi bi-list-ul admin-link-icon"></i> Gérer les ingrédients
             </a>
-                <div class="accordion bg-dark border-0" id="adminAccordion">
-                    <div class="accordion-item bg-dark border-0">
+                <div class="accordion admin-accordion border-0" id="adminAccordion">
+                    <div class="accordion-item admin-accordion-item border-0">
                         <h2 class="accordion-header" id="headingContent">
-                            <button class="accordion-button bg-dark text-white collapsed p-2 d-block nav-link w-100 text-start" type="button" data-bs-toggle="collapse" data-bs-target="#collapseContent" aria-expanded="false" aria-controls="collapseContent" style="box-shadow:none;">
+                            <button class="accordion-button admin-accordion-btn collapsed p-2 d-block nav-link w-100 text-start" type="button" data-bs-toggle="collapse" data-bs-target="#collapseContent" aria-expanded="false" aria-controls="collapseContent" style="box-shadow:none;">
                                 <i class="bi bi-gear me-2"></i> Gestion du contenu
                             </button>
                         </h2>
                         <div id="collapseContent" class="accordion-collapse collapse" aria-labelledby="headingContent" data-bs-parent="#adminAccordion">
-                            <div class="accordion-body p-0 bg-dark">
+                            <div class="accordion-body p-0 admin-accordion-body">
                                 <ul class="nav flex-column ms-3">
                                     <li class="nav-item">
-                                        <a class="nav-link text-white" href="{{ path('admin_recette') }}"><i class="bi bi-journal-text me-1"></i> Recettes</a>
+                                        <a class="nav-link admin-link" href="{{ path('admin_recette') }}"><i class="bi bi-journal-text me-1 admin-link-icon"></i> Recettes</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-white" href="{{ path('admin_ingredient') }}"><i class="bi bi-basket me-1"></i> Ingrédients</a>
+                                        <a class="nav-link admin-link" href="{{ path('admin_ingredient') }}"><i class="bi bi-basket me-1 admin-link-icon"></i> Ingrédients</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-white" href="{{ path('admin_comment') }}"><i class="bi bi-chat-left-text me-1"></i> Commentaires</a>
+                                        <a class="nav-link admin-link" href="{{ path('admin_comment') }}"><i class="bi bi-chat-left-text me-1 admin-link-icon"></i> Commentaires</a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-            <a href="{{ path('admin_user') }}" class="text-white text-decoration-none p-2 d-block nav-link">
-                <i class="bi bi-people text-white"></i> Gérer les utilisateurs
+            <a href="{{ path('admin_user') }}" class="admin-link text-decoration-none p-2 d-block nav-link">
+                <i class="bi bi-people admin-link-icon"></i> Gérer les utilisateurs
             </a>
         </nav>
 

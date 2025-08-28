@@ -1,3 +1,42 @@
+/* Admin dark/light mode cohérent */
+body.dark .admin-sidebar,
+.admin-sidebar {
+    background-color: var(--admin-sidebar-bg, #212529);
+    color: var(--admin-sidebar-text, #fff);
+}
+
+body.dark .admin-link,
+.admin-link {
+    color: var(--admin-link-text, #fff) !important;
+}
+
+body.dark .admin-link-icon,
+.admin-link-icon {
+    color: var(--admin-link-icon, #fff) !important;
+}
+
+body.dark .admin-accordion,
+.admin-accordion {
+    background-color: var(--admin-sidebar-bg, #212529);
+}
+
+body.dark .admin-accordion-item,
+.admin-accordion-item {
+    background-color: var(--admin-sidebar-bg, #212529);
+}
+
+body.dark .admin-accordion-btn,
+.admin-accordion-btn {
+    background-color: var(--admin-sidebar-bg, #212529);
+    color: var(--admin-sidebar-text, #fff);
+}
+
+body.dark .admin-accordion-body,
+.admin-accordion-body {
+    background-color: var(--admin-sidebar-bg, #212529);
+    color: var(--admin-sidebar-text, #fff);
+}
+
 /* Tooltip personnalisé rouge arrondi pour le bouton like */
 .custom-tooltip-parent {
     position: relative;
