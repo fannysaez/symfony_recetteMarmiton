@@ -5,6 +5,21 @@
     {% elseif recipe.likes|length > 10 %}
         <span class="badge bg-warning text-dark position-absolute top-0 start-0 m-2">Top</span>
     {% endif %}
+
+    {# Bouton Like en haut à droite #}
+    {% if app.user and recipe.user and recipe.user.id != app.user.id and not is_granted('ROLE_ADMIN') %}
+        {% set isLiked = recipe.likes|filter(l => l.user and l.user.id == app.user.id)|length > 0 %}
+        <button class="like-simple-btn position-absolute top-0 end-0 m-2 custom-tooltip-parent"
+            style="z-index:2; background:transparent; border:none; padding:0;"
+            data-recipe-id="{{ recipe.id }}"
+            data-liked="{{ isLiked ? '1' : '0' }}">
+            <span class="custom-tooltip">{{ isLiked ? 'Dislike' : 'Like' }}</span>
+                <svg class="like-simple-icon" width="32" height="32" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 21C12 21 4 13.36 4 8.5C4 5.42 6.42 3 9.5 3C11.04 3 12.54 3.81 13.35 5.08C14.16 3.81 15.66 3 17.2 3C20.28 3 22.7 5.42 22.7 8.5C22.7 13.36 15 21 15 21H12Z"
+                          fill="{{ isLiked ? '#e63946' : '#e0e0e0' }}"/>
+                </svg>
+            </button>
+    {% endif %}
     
     {# Image de la recette #}
     <div class="card-img-container">

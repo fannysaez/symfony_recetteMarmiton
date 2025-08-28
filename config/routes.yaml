@@ -1,3 +1,12 @@
+# Admin recettes
+admin_recette:
+    resource: '../src/Controller/AdminRecetteController.php'
+    type: attribute
+
+# Admin commentaires
+admin_comment:
+    resource: '../src/Controller/AdminCommentController.php'
+    type: attribute
 controllers:
     resource:
         path: ../src/Controller/

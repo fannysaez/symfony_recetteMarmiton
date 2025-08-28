@@ -3,17 +3,40 @@
 {% block title %}Hello CommentController!{% endblock %}
 
 {% block body %}
-{# Formulaire d'ajout de commentaire #}
-<div class="card shadow-sm w-100 mt-3" style="max-width: 30rem;">
-    <div class="card-body">
-        <h5 class="card-title">Ajouter un commentaire</h5>
+<div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 80vh;">
+    <div class="card shadow-sm w-100 mt-3" style="max-width: 30rem;">
+        <div class="card-body">
+            <h5 class="card-title">Ajouter un commentaire</h5>
+            {{ form_start(form) }}
+                <div class="mb-3">
+                    {{ form_row(form.content) }}
+                </div>
+                <button type="submit" class="btn btn-success">Envoyer</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
 
-        {{ form_start(comment) }}
-            <div class="mb-3">
-                {{ form_row(comment.content) }}
+    <div class="w-100 mt-5" style="max-width: 40rem;">
+        <h4 class="mb-3">Tous les commentaires</h4>
+        {% for comment in comments %}
+            <div class="card mb-3">
+                <div class="card-header d-flex justify-content-between">
+                    <span><strong>{{ comment.user ? comment.user.username : 'Anonyme' }}</strong></span>
+                    <span class="text-muted">{{ comment.createdAt ? comment.createdAt|date('d/m/Y H:i') : '' }}</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{ comment.content }}</p>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <form method="post" action="{{ path('comment_delete', {'id': comment.id}) }}" style="display:inline-block" onsubmit="return confirm('Supprimer ce commentaire ?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete_comment_' ~ comment.id) }}">
+                            <button class="btn btn-sm btn-danger">Supprimer</button>
+                        </form>
+                    {% endif %}
+                </div>
             </div>
-            <button type="submit" class="btn btn-success">Envoyer</button>
-        {{ form_end(comment) }}
+        {% else %}
+            <p class="text-muted">Aucun commentaire pour le moment.</p>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}

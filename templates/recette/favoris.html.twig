@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container mt-5 py-5 mb-3">
+    <h1 class="mb-4">Mes recettes favorites</h1>
+    {% if favorites is empty %}
+        <div class="alert alert-info">Vous n'avez pas encore de recettes en favoris.</div>
+    {% else %}
+        <div class="row">
+            {% for recipe in favorites %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img src="{{ recipe.image ?: 'https://via.placeholder.com/300x200?text=Recette' }}" class="card-img-top" alt="{{ recipe.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ recipe.title }}</h5>
+                            <p class="card-text">{{ recipe.description|slice(0, 80) ~ (recipe.description|length > 80 ? '...' : '') }}</p>
+                            <a href="{{ path('recette_show', {'id': recipe.id}) }}" class="btn btn-primary">Voir la recette</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="mt-4">
+        <a href="{{ path('home_index') }}" class="btn btn-light">Retour à l'accueil</a>
+    </div>
+</div>
+{% endblock %}

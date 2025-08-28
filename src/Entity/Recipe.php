@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\RecipeRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use App\Entity\Tag;
 
 #[ORM\Entity(repositoryClass: RecipeRepository::class)]
 #[ORM\HasLifecycleCallbacks] // Ajout de la gestion des callbacks lifecycle
@@ -64,6 +65,12 @@ class Recipe
     #[ORM\ManyToMany(targetEntity: Ingredient::class, inversedBy: 'recipes')]
     private Collection $ingredients;
 
+    /**
+     * @var Collection<int, Tag>
+     */
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'recipes', cascade: ['persist'])]
+    private Collection $tags;
+
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
@@ -72,6 +79,28 @@ class Recipe
         $this->comments = new ArrayCollection();
         $this->likes = new ArrayCollection();
         $this->ingredients = new ArrayCollection();
+        $this->tags = new ArrayCollection();
+    }
+    /**
+     * @return Collection<int, Tag>
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tag): static
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+        }
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): static
+    {
+        $this->tags->removeElement($tag);
+        return $this;
     }
 
     public function getId(): ?int
@@ -280,8 +309,7 @@ class Recipe
     }
 
     public function isNew(): bool
-{
-    return $this->createdAt >= new \DateTimeImmutable('-7 days');
-}
-
+    {
+        return $this->createdAt >= new \DateTimeImmutable('-7 days');
+    }
 }

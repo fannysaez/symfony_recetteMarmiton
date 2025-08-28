@@ -14,27 +14,64 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/ingredient')]
 final class IngredientController extends AbstractController
 {
-    // Liste des ingrédients
-    #[Route('/', name: 'ingredient_index')]
-    public function index(EntityManagerInterface $entityManager): Response
+    #[Route('/create', name: 'ingredient_create')]
+    public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $ingredient = $entityManager->getRepository(Ingredient::class)->findAll();
-
+        $ingredient = new Ingredient();
+        $form = $this->createForm(IngredientType::class, $ingredient);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($ingredient);
+            $entityManager->flush();
+            $this->addFlash('success', 'Ingrédient ajouté avec succès.');
+            return $this->redirectToRoute('ingredient_admin');
+        }
         return $this->render('admin_ingredient/create.html.twig', [
-            'recipes' => $ingredient,
+            'form' => $form->createView(),
         ]);
     }
 
-    // Nouvelle route pour la liste des ingrédients avec un chemin unique
-    #[Route('/list', name: 'ingredient_list')]
-    public function list(IngredientRepository $ingredientRepository): Response
+    #[Route('/admin', name: 'ingredient_admin')]
+    public function adminList(IngredientRepository $ingredientRepository): Response
     {
-        // Récupérer tous les ingrédients depuis la base de données
         $ingredients = $ingredientRepository->findAll();
-
-        // Retourner la vue avec les ingrédients
-        return $this->render('ingredient/list.html.twig', [
+        return $this->render('admin_ingredient/index.html.twig', [
             'ingredients' => $ingredients,
         ]);
+    }
+
+    #[Route('/{id}/edit', name: 'ingredient_edit')]
+    public function edit(int $id, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $ingredient = $entityManager->getRepository(Ingredient::class)->find($id);
+        if (!$ingredient) {
+            throw $this->createNotFoundException('Ingrédient non trouvé');
+        }
+        $form = $this->createForm(IngredientType::class, $ingredient);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+            $this->addFlash('success', 'Ingrédient modifié avec succès.');
+            return $this->redirectToRoute('ingredient_admin');
+        }
+        return $this->render('admin_ingredient/create.html.twig', [
+            'form' => $form->createView(),
+            'ingredient' => $ingredient,
+        ]);
+    }
+
+    #[Route('/{id}/delete', name: 'ingredient_delete', methods: ['POST'])]
+    public function delete(int $id, EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $ingredient = $entityManager->getRepository(Ingredient::class)->find($id);
+        if (!$ingredient) {
+            throw $this->createNotFoundException('Ingrédient non trouvé');
+        }
+        if ($this->isCsrfTokenValid('delete_ingredient_' . $ingredient->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($ingredient);
+            $entityManager->flush();
+            $this->addFlash('success', 'Ingrédient supprimé avec succès.');
+        }
+        return $this->redirectToRoute('ingredient_admin');
     }
 }

@@ -1,0 +1,18 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Détail du commentaire{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>Détail du commentaire</h1>
+    <table class="table table-bordered w-auto">
+        <tr><th>ID</th><td>{{ comment.id }}</td></tr>
+        <tr><th>Auteur</th><td>{{ comment.user ? comment.user.username : 'Anonyme' }}</td></tr>
+        <tr><th>Recette</th><td>{{ comment.recipe ? comment.recipe.title : '' }}</td></tr>
+        <tr><th>Date</th><td>{{ comment.createdAt ? comment.createdAt|date('d/m/Y H:i') : '' }}</td></tr>
+        <tr><th>Contenu</th><td>{{ comment.content }}</td></tr>
+    </table>
+    <a href="{{ path('admin_comment') }}" class="btn btn-secondary">Retour à la liste</a>
+    <a href="{{ path('comment_edit', {'id': comment.id}) }}" class="btn btn-warning">Modifier</a>
+</div>
+{% endblock %}

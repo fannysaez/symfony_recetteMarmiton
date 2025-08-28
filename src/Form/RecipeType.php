@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Recipe;
 use App\Entity\Ingredient;
+use App\Entity\Tag;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -12,6 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType; // Ajouté pour le champ description
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Doctrine\ORM\EntityManagerInterface;
 
 class RecipeType extends AbstractType
@@ -69,6 +71,16 @@ class RecipeType extends AbstractType
                     'class' => 'ingredients-checkboxes', // Classe pour personnaliser l'apparence
                 ],
             ])
+            // Champ pour les tags libres (saisie séparée par des virgules)
+            ->add('tags', TextType::class, [
+                'label' => 'Tags (séparés par des virgules)',
+                'mapped' => false,
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'ex: rapide, vegan, été',
+                ],
+                'help' => 'Tapez les tags séparés par des virgules. Les tags seront créés s’ils n’existent pas.',
+            ])
             // Ajout du champ de description
             ->add('description', TextareaType::class, [
                 'label' => 'Description de la recette',
@@ -86,6 +98,4 @@ class RecipeType extends AbstractType
             'data_class' => Recipe::class,
         ]);
     }
-
-    
 }

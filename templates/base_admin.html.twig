@@ -1,3 +1,70 @@
+{# Modale de confirmation Bootstrap universelle #}
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmer la suppression</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body">
+                <div id="deleteStep1">
+                    <p>Êtes-vous sûr de vouloir supprimer cet élément ?</p>
+                </div>
+                <div id="deleteStep2" style="display:none;">
+                    <p class="text-danger fw-bold">Cette action est irréversible.<br>Cliquer à nouveau sur <b>Supprimer</b> pour confirmer définitivement.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modalCancelBtn">Annuler</button>
+            <button type="button" class="btn btn-danger" id="modalDeleteBtn" data-step="1">Confirmer la suppression</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+// Script pour gérer la modale de suppression universelle avec double confirmation
+let formToSubmit = null;
+let deleteBtn = null;
+let step1 = null;
+let step2 = null;
+window.addEventListener('DOMContentLoaded', function() {
+    deleteBtn = document.getElementById('modalDeleteBtn');
+    step1 = document.getElementById('deleteStep1');
+    step2 = document.getElementById('deleteStep2');
+    document.querySelectorAll('form[data-confirm-delete]').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            formToSubmit = form;
+            if(deleteBtn && step1 && step2) {
+                deleteBtn.setAttribute('data-step', '1');
+                step1.style.display = '';
+                step2.style.display = 'none';
+            }
+            const modal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
+            modal.show();
+        });
+    });
+    if(deleteBtn) {
+        deleteBtn.addEventListener('click', function() {
+            // Un seul clic pour confirmer la suppression
+            if(formToSubmit) {
+                formToSubmit.submit();
+            }
+            const modal = bootstrap.Modal.getInstance(document.getElementById('confirmDeleteModal'));
+            modal.hide();
+        });
+    }
+    // Réinitialiser la modale si on annule
+    document.getElementById('modalCancelBtn')?.addEventListener('click', function() {
+        formToSubmit = null;
+        if(deleteBtn && step1 && step2) {
+            deleteBtn.setAttribute('data-step', '1');
+            step1.style.display = '';
+            step2.style.display = 'none';
+        }
+    });
+});
+</script>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -21,10 +88,36 @@
             <a href="{{ path('home_index') }}" class="text-white text-decoration-none p-2 d-block nav-link">
                 <i class="bi bi-house-door text-white"></i> Accueil
             </a>
-            <a href="{{ path('admin_ingredient') }}" class="text-white text-decoration-none p-2 d-block nav-link">
-                <i class="bi bi-plus-circle text-white"></i> Ajouter un ingrédient
+            <a href="{{ path('ingredient_admin') }}" class="text-white text-decoration-none p-2 d-block nav-link">
+                <i class="bi bi-list-ul text-white"></i> Gérer les ingrédients
             </a>
-            
+                <div class="accordion bg-dark border-0" id="adminAccordion">
+                    <div class="accordion-item bg-dark border-0">
+                        <h2 class="accordion-header" id="headingContent">
+                            <button class="accordion-button bg-dark text-white collapsed p-2 d-block nav-link w-100 text-start" type="button" data-bs-toggle="collapse" data-bs-target="#collapseContent" aria-expanded="false" aria-controls="collapseContent" style="box-shadow:none;">
+                                <i class="bi bi-gear me-2"></i> Gestion du contenu
+                            </button>
+                        </h2>
+                        <div id="collapseContent" class="accordion-collapse collapse" aria-labelledby="headingContent" data-bs-parent="#adminAccordion">
+                            <div class="accordion-body p-0 bg-dark">
+                                <ul class="nav flex-column ms-3">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-white" href="{{ path('admin_recette') }}"><i class="bi bi-journal-text me-1"></i> Recettes</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-white" href="{{ path('admin_ingredient') }}"><i class="bi bi-basket me-1"></i> Ingrédients</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-white" href="{{ path('admin_comment') }}"><i class="bi bi-chat-left-text me-1"></i> Commentaires</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <a href="{{ path('admin_user') }}" class="text-white text-decoration-none p-2 d-block nav-link">
+                <i class="bi bi-people text-white"></i> Gérer les utilisateurs
+            </a>
         </nav>
 
         <!-- Contenu principal -->
@@ -36,5 +129,8 @@
 
 
 </body>
+</html>
+{# Ajout du JS Bootstrap pour activer l'accordéon #}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </html>

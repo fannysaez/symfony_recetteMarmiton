@@ -1,6 +1,8 @@
 import './bootstrap.js';
+
 import { initDarkMode } from './js/theme.js';
 import './js/toggle-password.js';
+import './js/like.js';
 
 initDarkMode();
 
